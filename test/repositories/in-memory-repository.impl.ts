@@ -8,6 +8,15 @@ export class InMemoryRepositoryImpl<T> extends IBaseRepository<T> {
     this.items = [];
   }
 
+  async save(data: T): Promise<void> {
+    const index = this.items.findIndex(
+      (item) => (item as any).id.toString() === (data as any).id,
+    );
+    if (index !== -1) {
+      this.items[index] = data;
+    }
+  }
+
   async create(data: T): Promise<void> {
     this.items.push(data);
   }

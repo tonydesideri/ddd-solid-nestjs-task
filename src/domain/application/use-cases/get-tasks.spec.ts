@@ -2,7 +2,7 @@ import { InMemoryTasksRepositoryImpl } from '../repositories/in-memory-tasks-rep
 import { GetTasksUseCase } from './get-tasks.use-case';
 import { makeTask } from 'test/factories/make-task.factory';
 
-describe('CreateTaskUseCase', () => {
+describe('GetTasksUseCase', () => {
   let inMemoryTasksRepository: InMemoryTasksRepositoryImpl;
   let getTasksUseCase: GetTasksUseCase;
 
@@ -11,7 +11,7 @@ describe('CreateTaskUseCase', () => {
     getTasksUseCase = new GetTasksUseCase(inMemoryTasksRepository);
   });
 
-  it('should create a task', async () => {
+  it('should get all tasks', async () => {
     // Assert
     const task = makeTask({ title: 'Title' });
     inMemoryTasksRepository.create(task);

@@ -2,7 +2,7 @@ import { BaseEntity } from 'src/core/entities/base-entity';
 import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 import { Optional } from 'src/core/types/optional';
 
-interface TaskProps {
+export interface TaskProps {
   title: string;
   description: string;
   isFavorite: boolean;

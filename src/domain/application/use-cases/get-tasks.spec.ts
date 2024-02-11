@@ -1,6 +1,6 @@
-import { Task } from 'src/domain/enterprise/task.entity';
 import { InMemoryTasksRepositoryImpl } from '../repositories/in-memory-tasks-repository.impl';
 import { GetTasksUseCase } from './get-tasks.use-case';
+import { makeTask } from 'test/factories/make-task.factory';
 
 describe('CreateTaskUseCase', () => {
   let inMemoryTasksRepository: InMemoryTasksRepositoryImpl;
@@ -13,10 +13,7 @@ describe('CreateTaskUseCase', () => {
 
   it('should create a task', async () => {
     // Assert
-    const task = Task.instance({
-      title: 'Title',
-      description: 'Description',
-    });
+    const task = makeTask({ title: 'Title' });
     inMemoryTasksRepository.create(task);
 
     // Act

@@ -12,17 +12,41 @@ describe('FetchTasksUseCase', () => {
     fetchTasksUseCase = new FetchTasksUseCase(inMemoryTasksRepository);
   });
 
-  it('should be fetch all tasks', async () => {
+  it('should be fetch all recent tasks', async () => {
     // Assert
-    const task = makeTask({ title: 'Title' });
-    inMemoryTasksRepository.create(task);
+    inMemoryTasksRepository.create(
+      makeTask({ createdAt: new Date(2024, 1, 20) }),
+    );
+    inMemoryTasksRepository.create(
+      makeTask({ createdAt: new Date(2024, 1, 18) }),
+    );
+    inMemoryTasksRepository.create(
+      makeTask({ createdAt: new Date(2024, 1, 23) }),
+    );
 
     // Act
-    const { tasks } = await fetchTasksUseCase.execute();
+    const { tasks } = await fetchTasksUseCase.execute({ page: 1 });
 
-    //Verifica se tasks possui uma posição depois da crição e busca
-    expect(tasks).toHaveLength(1);
-    //Verifica se a primeira posição é igual a da criação
-    expect(tasks[0].title).toEqual('Title');
+    //Verifica se tasks possui 3 possições no array
+    expect(tasks).toHaveLength(3);
+    //Verifica se a ordenação funcionou corretamente
+    expect(tasks).toEqual([
+      expect.objectContaining({ createdAt: new Date(2024, 1, 23) }),
+      expect.objectContaining({ createdAt: new Date(2024, 1, 20) }),
+      expect.objectContaining({ createdAt: new Date(2024, 1, 18) }),
+    ]);
+  });
+
+  it('should be fetch all paginated recent tasks', async () => {
+    // Assert
+    for (let i = 1; i <= 42; i++) {
+      inMemoryTasksRepository.create(makeTask());
+    }
+
+    // Act
+    const { tasks } = await fetchTasksUseCase.execute({ page: 3 });
+
+    // Verifique se a ultima paginação possui apenas 2 objetos
+    expect(tasks).toHaveLength(2);
   });
 });

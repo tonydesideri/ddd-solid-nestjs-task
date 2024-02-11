@@ -1,5 +1,7 @@
-import { IBaseRepository } from 'src/core/contracts/base-repository.contract';
+import { IBaseRepository } from 'src/core/repositories/base-repository.contract';
+import { PaginationParams } from 'src/core/repositories/pagination-params.contract';
 
+const PERPAGE = 20;
 export class InMemoryRepositoryImpl<T> extends IBaseRepository<T> {
   public readonly items: T[];
 
@@ -21,8 +23,12 @@ export class InMemoryRepositoryImpl<T> extends IBaseRepository<T> {
     this.items.push(data);
   }
 
-  async findAll(): Promise<T[]> {
-    return this.items;
+  async findManyRecent({ page }: PaginationParams): Promise<T[]> {
+    const items = this.items
+      .sort((a: any, b: any) => b.createdAt.getTime() - a.createdAt.getTime())
+      .slice((page - 1) * PERPAGE, page * PERPAGE);
+
+    return items;
   }
 
   async findById(id: string): Promise<T | null> {

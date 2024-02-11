@@ -8,8 +8,8 @@ export function makeTask(
 ) {
   const task = Task.instance(
     {
-      title: faker.lorem.sentence(),
-      description: faker.lorem.text(),
+      title: faker.lorem.sentence(5),
+      description: faker.lorem.sentence({ min: 10, max: 50 }),
       isFavorite: false,
       status: 'TODO',
       ...override,

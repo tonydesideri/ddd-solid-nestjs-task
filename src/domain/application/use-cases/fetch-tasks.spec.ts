@@ -1,7 +1,6 @@
-import { InMemoryTasksRepositoryImpl } from '../repositories/in-memory-tasks-repository.impl';
-
 import { makeTask } from 'test/factories/make-task.factory';
 import { FetchTasksUseCase } from './fetch-tasks.use-case';
+import { InMemoryTasksRepositoryImpl } from 'test/repositories/in-memory-tasks-repository.impl';
 
 describe('FetchTasksUseCase', () => {
   let inMemoryTasksRepository: InMemoryTasksRepositoryImpl;

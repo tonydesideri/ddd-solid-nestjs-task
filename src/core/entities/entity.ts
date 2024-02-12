@@ -1,6 +1,6 @@
 import { UniqueEntityID } from './unique-entity-id';
 
-export abstract class BaseEntity<Props> {
+export abstract class Entity<Props> {
   private _id: UniqueEntityID;
   protected props: Props;
 
@@ -13,7 +13,7 @@ export abstract class BaseEntity<Props> {
     this._id = id ?? new UniqueEntityID();
   }
 
-  public equals(entity: BaseEntity<any>) {
+  public equals(entity: Entity<any>) {
     if (entity === this) {
       return true;
     }

@@ -1,21 +1,23 @@
-import { BaseEntity } from 'src/core/entities/base-entity';
+import { AggregateRoot } from 'src/core/entities/aggregate-root';
 import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 import { Optional } from 'src/core/types/optional';
+import { TaskAttachmentList } from './task-attachment-list.entity';
 
 export interface TaskProps {
   title: string;
   description: string;
   isFavorite: boolean;
   status: 'DONE' | 'TODO' | 'DOING';
+  attachments: TaskAttachmentList;
   createdAt: Date;
   updatedAt?: Date;
 }
 
-export class Task extends BaseEntity<TaskProps> {
+export class Task extends AggregateRoot<TaskProps> {
   static instance(
     props: Optional<
       TaskProps,
-      'isFavorite' | 'status' | 'createdAt' | 'updatedAt'
+      'isFavorite' | 'status' | 'createdAt' | 'updatedAt' | 'attachments'
     >,
     id?: UniqueEntityID,
   ) {
@@ -24,6 +26,7 @@ export class Task extends BaseEntity<TaskProps> {
         ...props,
         isFavorite: props.isFavorite ?? false,
         status: props.status ?? 'TODO',
+        attachments: props.attachments ?? new TaskAttachmentList(),
         createdAt: props.createdAt ?? new Date(),
       },
       id,
@@ -46,6 +49,10 @@ export class Task extends BaseEntity<TaskProps> {
 
   get status() {
     return this.props.status;
+  }
+
+  get attachments() {
+    return this.props.attachments;
   }
 
   get createdAt() {
@@ -75,6 +82,7 @@ export class Task extends BaseEntity<TaskProps> {
 
   set description(value: string) {
     this.props.description = value;
+    this.touch();
   }
 
   set isFavorite(value: boolean) {
@@ -84,6 +92,11 @@ export class Task extends BaseEntity<TaskProps> {
 
   set status(value: 'DONE' | 'TODO' | 'DOING') {
     this.props.status = value;
+    this.touch();
+  }
+
+  set attachments(value: TaskAttachmentList) {
+    this.props.attachments = value;
     this.touch();
   }
 }

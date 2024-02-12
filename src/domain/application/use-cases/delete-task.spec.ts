@@ -1,8 +1,8 @@
 import { makeTask } from 'test/factories/make-task.factory';
-import { InMemoryTasksRepositoryImpl } from '../repositories/in-memory-tasks-repository.impl';
 import { DeleteTaskUseCase } from './delete-task.use-case';
 import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 import { ResourceNotFoundError } from './errors/resource-not-found-error';
+import { InMemoryTasksRepositoryImpl } from 'test/repositories/in-memory-tasks-repository.impl';
 
 describe('DeleteTaskUseCase', () => {
   let inMemoryTasksRepository: InMemoryTasksRepositoryImpl;

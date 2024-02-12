@@ -2,6 +2,7 @@ import { makeTask } from 'test/factories/make-task.factory';
 import { InMemoryTasksRepositoryImpl } from '../repositories/in-memory-tasks-repository.impl';
 import { DeleteTaskUseCase } from './delete-task.use-case';
 import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
+import { ResourceNotFoundError } from './errors/resource-not-found-error';
 
 describe('DeleteTaskUseCase', () => {
   let inMemoryTasksRepository: InMemoryTasksRepositoryImpl;
@@ -30,10 +31,12 @@ describe('DeleteTaskUseCase', () => {
     const newTask = makeTask({}, new UniqueEntityID('task-1'));
     await inMemoryTasksRepository.create(newTask);
 
-    // Act & Assert
+    // Act
+    const result = await deleteTaskUseCase.execute({ id: 'another-task-1' });
+
+    // Assert
     // Verifica se a execução do caso de uso lança um erro quando a tarefa não é encontrada
-    await expect(
-      deleteTaskUseCase.execute({ id: 'another-task-1' }),
-    ).rejects.toThrow('Task not found');
+    expect(result.isFailure()).toBe(true);
+    expect(result.value).toBeInstanceOf(ResourceNotFoundError);
   });
 });

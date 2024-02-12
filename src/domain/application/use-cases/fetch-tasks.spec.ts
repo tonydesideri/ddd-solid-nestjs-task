@@ -25,12 +25,14 @@ describe('FetchTasksUseCase', () => {
     );
 
     // Act
-    const { tasks } = await fetchTasksUseCase.execute({ page: 1 });
+    const result = await fetchTasksUseCase.execute({ page: 1 });
 
+    //Verifica se a execução de sucesso
+    expect(result.isSuccess()).toBe(true);
     //Verifica se tasks possui 3 possições no array
-    expect(tasks).toHaveLength(3);
+    expect(result.value.tasks).toHaveLength(3);
     //Verifica se a ordenação funcionou corretamente
-    expect(tasks).toEqual([
+    expect(result.value.tasks).toEqual([
       expect.objectContaining({ createdAt: new Date(2024, 1, 23) }),
       expect.objectContaining({ createdAt: new Date(2024, 1, 20) }),
       expect.objectContaining({ createdAt: new Date(2024, 1, 18) }),
@@ -44,9 +46,11 @@ describe('FetchTasksUseCase', () => {
     }
 
     // Act
-    const { tasks } = await fetchTasksUseCase.execute({ page: 3 });
+    const result = await fetchTasksUseCase.execute({ page: 3 });
 
+    //Verifica se a execução de sucesso
+    expect(result.isSuccess()).toBe(true);
     // Verifique se a ultima paginação possui apenas 2 objetos
-    expect(tasks).toHaveLength(2);
+    expect(result.value.tasks).toHaveLength(2);
   });
 });

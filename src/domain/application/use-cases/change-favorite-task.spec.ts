@@ -3,6 +3,7 @@ import { InMemoryTasksRepositoryImpl } from '../repositories/in-memory-tasks-rep
 
 import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 import { ChangeFavoriteTaskUseCase } from './change-favorite-task.use-case';
+import { ResourceNotFoundError } from './errors/resource-not-found-error';
 
 describe('ChangeFavoriteTaskUseCase', () => {
   let inMemoryTasksRepository: InMemoryTasksRepositoryImpl;
@@ -38,10 +39,13 @@ describe('ChangeFavoriteTaskUseCase', () => {
     const newTask = makeTask({}, new UniqueEntityID('task-1'));
     await inMemoryTasksRepository.create(newTask);
 
-    // Act & Assert
-    // Verifica se a execução do caso de uso lança um erro quando a tarefa não é encontrada
-    await expect(
-      changeFavoriteTaskUseCase.execute({ id: 'another-task-1' }),
-    ).rejects.toThrow('Task not found');
+    // Act
+    const result = await changeFavoriteTaskUseCase.execute({
+      id: 'another-task-1',
+    });
+    // Assert
+    // Verifica se a execução lançou um erro
+    expect(result.isFailure()).toBe(true);
+    expect(result.value).toBeInstanceOf(ResourceNotFoundError);
   });
 });

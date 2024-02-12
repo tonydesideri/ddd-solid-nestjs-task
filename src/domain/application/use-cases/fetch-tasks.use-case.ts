@@ -1,13 +1,17 @@
 import { Task } from 'src/domain/enterprise/task.entity';
 import { ITasksRepository } from '../repositories/tasks-repository.contract';
+import { Either, success } from 'src/core/types/either';
 
 interface FetchTasksUseCaseRequest {
   page: number;
 }
 
-interface FetchTasksUseCaseResponse {
-  tasks: Task[];
-}
+type FetchTasksUseCaseResponse = Either<
+  null,
+  {
+    tasks: Task[];
+  }
+>;
 
 export class FetchTasksUseCase {
   constructor(private tasksRepository: ITasksRepository) {}
@@ -17,6 +21,6 @@ export class FetchTasksUseCase {
   }: FetchTasksUseCaseRequest): Promise<FetchTasksUseCaseResponse> {
     const tasks = await this.tasksRepository.findManyRecent({ page });
 
-    return { tasks };
+    return success({ tasks });
   }
 }

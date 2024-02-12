@@ -1,13 +1,21 @@
 import { makeTask } from 'test/factories/make-task.factory';
 import { FetchTasksUseCase } from './fetch-tasks.use-case';
 import { InMemoryTasksRepositoryImpl } from 'test/repositories/in-memory-tasks-repository.impl';
+import { InMemoryTaskAttachmentsRepositoryImpl } from 'test/repositories/in-memory-task-attachments-repository.impl ';
 
 describe('FetchTasksUseCase', () => {
+  let inMemoryTaskAttachmentsRepository: InMemoryTaskAttachmentsRepositoryImpl;
   let inMemoryTasksRepository: InMemoryTasksRepositoryImpl;
+
   let fetchTasksUseCase: FetchTasksUseCase;
 
   beforeEach(() => {
-    inMemoryTasksRepository = new InMemoryTasksRepositoryImpl();
+    inMemoryTaskAttachmentsRepository =
+      new InMemoryTaskAttachmentsRepositoryImpl();
+    inMemoryTasksRepository = new InMemoryTasksRepositoryImpl(
+      inMemoryTaskAttachmentsRepository,
+    );
+
     fetchTasksUseCase = new FetchTasksUseCase(inMemoryTasksRepository);
   });
 

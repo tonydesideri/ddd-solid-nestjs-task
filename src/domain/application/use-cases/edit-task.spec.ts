@@ -6,15 +6,17 @@ import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 import { makeTaskAttachment } from 'test/factories/make-task-attachment.factory';
 import { ResourceNotFoundError } from './errors/resource-not-found-error';
 
-let inMemoryTasksRepository: InMemoryTasksRepositoryImpl;
-let inMemoryTaskAttachmentsRepository: InMemoryTaskAttachmentsRepositoryImpl;
-let sut: EditTaskUseCase;
-
 describe('Edit Task', () => {
+  let inMemoryTaskAttachmentsRepository: InMemoryTaskAttachmentsRepositoryImpl;
+  let inMemoryTasksRepository: InMemoryTasksRepositoryImpl;
+  let sut: EditTaskUseCase;
+
   beforeEach(() => {
     inMemoryTaskAttachmentsRepository =
       new InMemoryTaskAttachmentsRepositoryImpl();
-    inMemoryTasksRepository = new InMemoryTasksRepositoryImpl();
+    inMemoryTasksRepository = new InMemoryTasksRepositoryImpl(
+      inMemoryTaskAttachmentsRepository,
+    );
 
     sut = new EditTaskUseCase(
       inMemoryTasksRepository,

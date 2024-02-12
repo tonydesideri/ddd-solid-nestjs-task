@@ -1,13 +1,20 @@
 import { InMemoryTasksRepositoryImpl } from 'test/repositories/in-memory-tasks-repository.impl';
 import { CreateTaskUseCase } from './create-task.use-case';
 import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
+import { InMemoryTaskAttachmentsRepositoryImpl } from 'test/repositories/in-memory-task-attachments-repository.impl ';
 
 describe('CreateTaskUseCase', () => {
+  let inMemoryTaskAttachmentsRepository: InMemoryTaskAttachmentsRepositoryImpl;
   let inMemoryTasksRepository: InMemoryTasksRepositoryImpl;
   let createTaskUseCase: CreateTaskUseCase;
 
   beforeEach(() => {
-    inMemoryTasksRepository = new InMemoryTasksRepositoryImpl();
+    inMemoryTaskAttachmentsRepository =
+      new InMemoryTaskAttachmentsRepositoryImpl();
+    inMemoryTasksRepository = new InMemoryTasksRepositoryImpl(
+      inMemoryTaskAttachmentsRepository,
+    );
+
     createTaskUseCase = new CreateTaskUseCase(inMemoryTasksRepository);
   });
 

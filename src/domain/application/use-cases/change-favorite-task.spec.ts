@@ -4,13 +4,20 @@ import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 import { ChangeFavoriteTaskUseCase } from './change-favorite-task.use-case';
 import { ResourceNotFoundError } from './errors/resource-not-found-error';
 import { InMemoryTasksRepositoryImpl } from 'test/repositories/in-memory-tasks-repository.impl';
+import { InMemoryTaskAttachmentsRepositoryImpl } from 'test/repositories/in-memory-task-attachments-repository.impl ';
 
 describe('ChangeFavoriteTaskUseCase', () => {
+  let inMemoryTaskAttachmentsRepository: InMemoryTaskAttachmentsRepositoryImpl;
   let inMemoryTasksRepository: InMemoryTasksRepositoryImpl;
   let changeFavoriteTaskUseCase: ChangeFavoriteTaskUseCase;
 
   beforeEach(() => {
-    inMemoryTasksRepository = new InMemoryTasksRepositoryImpl();
+    inMemoryTaskAttachmentsRepository =
+      new InMemoryTaskAttachmentsRepositoryImpl();
+    inMemoryTasksRepository = new InMemoryTasksRepositoryImpl(
+      inMemoryTaskAttachmentsRepository,
+    );
+
     changeFavoriteTaskUseCase = new ChangeFavoriteTaskUseCase(
       inMemoryTasksRepository,
     );

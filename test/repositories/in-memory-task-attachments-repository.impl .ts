@@ -11,6 +11,10 @@ export class InMemoryTaskAttachmentsRepositoryImpl
   }
 
   async deleteManyByTaskId(taskId: string): Promise<void> {
-    throw new Error('Method not implemented.');
+    const taskAttachments = this.items.filter(
+      (item) => item.taskId.toString() !== taskId,
+    );
+
+    this.items = taskAttachments;
   }
 }

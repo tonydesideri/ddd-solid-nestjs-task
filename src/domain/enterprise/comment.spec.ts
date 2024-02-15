@@ -16,7 +16,7 @@ describe('Comment', () => {
     expect(comment.taskId).toEqual(new UniqueEntityID('task-1'));
     expect(comment.content).toEqual('content');
     expect(comment.createdAt).toBeInstanceOf(Date);
-    expect(comment.updatedAt).toBe(null);
+    expect(comment.updatedAt).toBeNull();
   });
 
   it('should create a comment instance with provided createdAt', () => {

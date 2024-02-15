@@ -9,6 +9,8 @@
 [x] Deve ser possivel deletar uma tarefa juntamente com os anexos
 
 [] Deve ser possivel adicionar um comentário a tarefa
+- taskId
+- content
 
 [] Deve ser possivel adicionar um anexo ao comentário
 
@@ -17,3 +19,11 @@
 [] Deve ser possivel excluir um comentário com os anexos junto
 
 [] Deve ser possivel enivar um e-mail quando favoritar uma task
+
+__________________________________________________________________________
+
+[] Deve ser possivel cadastrar um anexo
+
+[] Deve ser possivel editar um anexo
+
+[] Deve ser possivel excluir um anexo

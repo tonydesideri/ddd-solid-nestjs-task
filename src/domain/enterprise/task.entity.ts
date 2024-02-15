@@ -76,7 +76,7 @@ export class Task extends AggregateRoot<TaskProps> {
   }
 
   set title(value: string) {
-    this.props.title = value;
+    this.props.title = value.toUpperCase();
     this.touch();
   }
 

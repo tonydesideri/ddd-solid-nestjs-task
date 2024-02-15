@@ -53,7 +53,7 @@ describe('TaskEntity', () => {
     task.isFavorite = true;
     task.status = 'DONE';
 
-    expect(task.title).toBe('Updated Task');
+    expect(task.title).toBe('UPDATED TASK');
     expect(task.description).toBe('Updated Task Description');
     expect(task.isFavorite).toBe(true);
     expect(task.status).toBe('DONE');

@@ -48,7 +48,7 @@ describe('Edit Task', () => {
     });
 
     expect(inMemoryTasksRepository.items[0]).toMatchObject({
-      title: 'Title teste',
+      title: 'TITLE TESTE',
       description: 'Description',
     });
 

@@ -11,6 +11,7 @@
 [] Deve ser possivel adicionar um comentário a tarefa
 - taskId
 - content
+- Não deve ser possivel cadastrar um comentário sem uma tarefa
 
 [] Deve ser possivel adicionar um anexo ao comentário
 

@@ -7,7 +7,7 @@ const PERPAGE = 20;
 export class InMemoryTasksRepositoryImpl implements ITasksRepository {
   public items: Task[];
 
-  constructor(private taskAttachmentsRepository: ITaskAttachmentsRepository) {
+  constructor(private taskAttachmentsRepository?: ITaskAttachmentsRepository) {
     this.items = [];
   }
 

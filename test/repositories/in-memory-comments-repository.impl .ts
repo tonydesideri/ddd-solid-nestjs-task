@@ -2,9 +2,9 @@ import { ICommentsRepository } from 'src/domain/application/repositories/comment
 import { Comment } from 'src/domain/enterprise/comment.entity';
 
 export class InMemoryCommentsRepositoryImpl implements ICommentsRepository {
-  public items: Comment[];
+  public items: Comment[] = [];
 
-  async create(data: Comment): Promise<void> {
+  async create(data: any): Promise<void> {
     this.items.push(data);
   }
 }

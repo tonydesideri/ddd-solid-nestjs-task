@@ -21,13 +21,14 @@ describe('CreateCommentUseCase', () => {
     );
   });
 
-  it('Deve ser possivel criar um comentario', async () => {
+  it('Deve ser possivel criar um comentario com anexo', async () => {
     const task = makeTask({}, new UniqueEntityID('task-1'));
     await inMemoryTasksRepository.create(task);
 
     const comment = {
       taskId: 'task-1',
       content: 'Content',
+      attachmentsIds: ['1', '2']
     };
 
     // Act
@@ -46,6 +47,7 @@ describe('CreateCommentUseCase', () => {
     const comment = {
       taskId: 'task-2',
       content: 'Content',
+      attachmentsIds: ['1', '2']
     };
 
     // Act

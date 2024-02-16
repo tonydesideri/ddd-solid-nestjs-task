@@ -8,12 +8,12 @@
 
 [x] Deve ser possivel deletar uma tarefa juntamente com os anexos
 
-[] Deve ser possivel adicionar um comentário a tarefa
+[x] Deve ser possivel adicionar um comentário a tarefa
 - taskId
 - content
 - Não deve ser possivel cadastrar um comentário sem uma tarefa
 
-[] Deve ser possivel adicionar um anexo ao comentário
+[x] Deve ser possivel adicionar um anexo ao comentário
 
 [] Deve ser possivel editar um comentário com anexo
 

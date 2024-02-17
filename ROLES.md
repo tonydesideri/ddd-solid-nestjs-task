@@ -8,18 +8,18 @@
 
 [x] Deve ser possivel deletar uma tarefa juntamente com os anexos
 
-[] Deve ser possivel adicionar um comentário a tarefa
+[x] Deve ser possivel adicionar um comentário a tarefa
 - taskId
 - content
 - Não deve ser possivel cadastrar um comentário sem uma tarefa
 
-[] Deve ser possivel adicionar um anexo ao comentário
+[x] Deve ser possivel adicionar um anexo ao comentário
 
-[] Deve ser possivel editar um comentário com anexo
+[x] Deve ser possivel editar um comentário com anexo
 
-[] Deve ser possivel excluir um comentário com os anexos junto
+[x] Deve ser possivel excluir um comentário com os anexos junto
 
-[] Deve ser possivel enivar um e-mail quando favoritar uma task
+[] Deve ser possivel enivar um e-mail quando favoritar uma task (validar)
 
 __________________________________________________________________________
 

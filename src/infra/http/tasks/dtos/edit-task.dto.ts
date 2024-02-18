@@ -1,6 +1,6 @@
 import { IsArray, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
-export class CreateTaskDto {
+export class EditTaskDto {
   @IsNotEmpty()
   @IsString()
   readonly title: string;

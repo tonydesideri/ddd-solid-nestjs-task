@@ -14,8 +14,8 @@ export class FetchRecentTasksController {
       throw new BadRequestException();
     }
 
-    const questions = result.value.tasks.map(TaskPresenter.toHTTP);
+    const tasks = result.value.tasks.map(TaskPresenter.toHTTP);
 
-    return { questions };
+    return { tasks };
   }
 }

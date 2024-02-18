@@ -10,10 +10,12 @@ import { EditTaskUseCase } from 'src/domain/application/use-cases/edit-task.use-
 import { PrismaTaskAttachmentsRepositoryImpl } from '../database/prisma/repositories/prisma-task-attachments-repository.impl';
 import { DeleteTaskController } from './tasks/controllers/delete-task.controller';
 import { DeleteTaskUseCase } from 'src/domain/application/use-cases/delete-task.use-case';
+import { ChangeFavoriteTaskUseCase } from 'src/domain/application/use-cases/change-favorite-task.use-case';
+import { ChangeFavoriteTaskController } from './tasks/controllers/change-favorite-task.controller';
 
 @Module({
   imports: [DatabaseModule],
-  controllers: [CreateTaskController, FetchRecentTasksController, EditTaskController, DeleteTaskController],
+  controllers: [CreateTaskController, FetchRecentTasksController, EditTaskController, DeleteTaskController, ChangeFavoriteTaskController],
   providers: [
     {
       provide: CreateTaskUseCase,
@@ -40,6 +42,12 @@ import { DeleteTaskUseCase } from 'src/domain/application/use-cases/delete-task.
       provide: DeleteTaskUseCase,
       useFactory: (repository: PrismaTasksRepositoryImpl) =>
         new DeleteTaskUseCase(repository),
+      inject: [PrismaTasksRepositoryImpl],
+    },
+    {
+      provide: ChangeFavoriteTaskUseCase,
+      useFactory: (repository: PrismaTasksRepositoryImpl) =>
+        new ChangeFavoriteTaskUseCase(repository),
       inject: [PrismaTasksRepositoryImpl],
     },
   ],

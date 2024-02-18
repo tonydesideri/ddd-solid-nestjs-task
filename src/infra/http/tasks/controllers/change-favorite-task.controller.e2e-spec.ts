@@ -6,7 +6,7 @@ import { AppModule } from 'src/infra/app.module';
 import { DatabaseModule } from 'src/infra/database/database.module';
 import { TaskFactory } from 'test/factories/make-task.factory';
 
-describe('Delete Task (e2e)', () => {
+describe('Change Favorite Task (e2e)', () => {
   let app: INestApplication;
   let prisma: PrismaService;
   let taskFactory: TaskFactory
@@ -25,12 +25,12 @@ describe('Delete Task (e2e)', () => {
     await app.init();
   });
 
-  test('[DELETE] /tasks/:id', async () => {
+  test('[PATCH] /tasks/:id', async () => {
     const task = await taskFactory.makePrismaTask()
     const taskId = task.id.toString()
 
     const response = await request(app.getHttpServer())
-      .delete(`/tasks/${taskId}`)
+      .patch(`/tasks/${taskId}`)
       .send();
 
     expect(response.statusCode).toBe(204);
@@ -41,14 +41,14 @@ describe('Delete Task (e2e)', () => {
       },
     });
 
-    expect(taskOnDatabase).toBeNull();
+    expect(taskOnDatabase.isFavorite).toEqual(true);
   });
 
-  test('[DELETE] /tasks/:id not exists', async () => {
+  test('[PATCH] /tasks/:id not exists', async () => {
     await taskFactory.makePrismaTask()
 
     const response = await request(app.getHttpServer())
-      .delete(`/tasks/taskid-qualquer`)
+      .patch(`/tasks/taskid-qualquer`)
       .send();
 
     expect(response.statusCode).toBe(404);

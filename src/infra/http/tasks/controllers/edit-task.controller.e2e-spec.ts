@@ -47,4 +47,17 @@ describe('Edit Task (e2e)', () => {
 
     expect(taskOnDatabase).toBeTruthy();
   });
+
+  test('[PUT] /tasks/:id not exists', async () => {
+    await taskFactory.makePrismaTask()
+
+    const response = await request(app.getHttpServer())
+      .put(`/tasks/taskid-qualquer`)
+      .send({
+        title: 'Edit Title',
+        description: 'Edit Description',
+      });
+
+    expect(response.statusCode).toBe(404);
+  });
 });

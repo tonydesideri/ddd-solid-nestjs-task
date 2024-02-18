@@ -1,6 +1,7 @@
-import { BadRequestException, Body, Controller, HttpCode, Param, Put } from '@nestjs/common';
+import { BadRequestException, Body, Controller, HttpCode, NotFoundException, Param, Put } from '@nestjs/common';
 import { EditTaskUseCase } from 'src/domain/application/use-cases/edit-task.use-case';
 import { EditTaskDto } from '../dtos/edit-task.dto';
+import { ResourceNotFoundError } from 'src/domain/application/use-cases/errors/resource-not-found-error';
 
 
 @Controller('/tasks/:id')
@@ -20,7 +21,14 @@ export class EditTaskController {
     });
 
     if (result.isFailure()) {
-      throw new BadRequestException()
+      const error = result.value
+
+      switch (error.constructor) {
+        case ResourceNotFoundError:
+          throw new NotFoundException(error.message)
+        default:
+          throw new BadRequestException()
+      }
     }
   }
 }

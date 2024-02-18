@@ -62,7 +62,7 @@ describe('Edit Task', () => {
   });
 
   it('should throw an error if task is not found', async () => {
-    // Arrange 
+    // Arrange
     const newTask = makeTask({}, new UniqueEntityID('task-1'));
     await inMemoryTasksRepository.create(newTask);
 

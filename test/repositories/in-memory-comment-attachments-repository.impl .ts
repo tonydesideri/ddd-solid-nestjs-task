@@ -2,11 +2,14 @@ import { ICommentAttachmentsRepository } from 'src/domain/application/repositori
 import { CommentAttachment } from 'src/domain/enterprise/comment-attachment.entity';
 
 export class InMemoryCommentAttachmentsRepositoryImpl
-  implements ICommentAttachmentsRepository {
+  implements ICommentAttachmentsRepository
+{
   public items: CommentAttachment[] = [];
 
   async findManyByCommentId(commentId: string): Promise<CommentAttachment[]> {
-    return this.items.filter((item) => item.attachmentId.toString() === commentId);
+    return this.items.filter(
+      (item) => item.attachmentId.toString() === commentId,
+    );
   }
 
   async deleteManyByCommentId(commentId: string): Promise<void> {

@@ -10,7 +10,7 @@ export interface TaskProps {
   status: 'DONE' | 'TODO' | 'DOING';
   attachments: TaskAttachmentList;
   createdAt: Date;
-  updatedAt?: Date;
+  updatedAt?: Date | null;
 }
 
 export class Task extends AggregateRoot<TaskProps> {

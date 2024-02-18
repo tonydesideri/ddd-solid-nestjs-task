@@ -28,7 +28,7 @@ describe('CreateCommentUseCase', () => {
     const comment = {
       taskId: 'task-1',
       content: 'Content',
-      attachmentsIds: ['1', '2']
+      attachmentsIds: ['1', '2'],
     };
 
     // Act
@@ -47,7 +47,7 @@ describe('CreateCommentUseCase', () => {
     const comment = {
       taskId: 'task-2',
       content: 'Content',
-      attachmentsIds: ['1', '2']
+      attachmentsIds: ['1', '2'],
     };
 
     // Act

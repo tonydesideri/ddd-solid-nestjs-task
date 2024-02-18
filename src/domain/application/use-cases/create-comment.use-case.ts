@@ -19,7 +19,7 @@ export class CreateCommentUseCase {
   constructor(
     private taskRepository: ITasksRepository,
     private commentsRepository: ICommentsRepository,
-  ) { }
+  ) {}
 
   async execute({
     taskId,

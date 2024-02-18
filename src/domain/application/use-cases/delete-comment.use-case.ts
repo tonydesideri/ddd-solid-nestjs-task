@@ -9,7 +9,7 @@ interface DeleteCommentUseCaseRequest {
 type DeleteCommentUseCaseResponse = Either<ResourceNotFoundError, object>;
 
 export class DeleteCommentUseCase {
-  constructor(private commentsRepository: ICommentsRepository) { }
+  constructor(private commentsRepository: ICommentsRepository) {}
 
   async execute({
     id,
@@ -17,7 +17,6 @@ export class DeleteCommentUseCase {
     const comment = await this.commentsRepository.findById(id);
 
     if (!comment) {
-
       return failure(new ResourceNotFoundError('Tarefa não encontrada.'));
     }
 

@@ -22,7 +22,6 @@ describe('Edit Comment', () => {
       new InMemoryCommentAttachmentsRepositoryImpl();
     inMemoryCommentsRepository = new InMemoryCommentsRepositoryImpl();
 
-
     sut = new EditCommentUseCase(
       inMemoryCommentsRepository,
       inMemoryCommentAttachmentsRepository,
@@ -33,9 +32,12 @@ describe('Edit Comment', () => {
     const task = makeTask({}, new UniqueEntityID('task-1'));
     await inMemoryTasksRepository.create(task);
 
-    const newComment = makeComment({
-      taskId: task.id
-    }, new UniqueEntityID('Comment-1'));
+    const newComment = makeComment(
+      {
+        taskId: task.id,
+      },
+      new UniqueEntityID('Comment-1'),
+    );
 
     await inMemoryCommentsRepository.create(newComment);
 
@@ -63,7 +65,9 @@ describe('Edit Comment', () => {
     expect(
       inMemoryCommentsRepository.items[0].attachments.currentItems,
     ).toHaveLength(2);
-    expect(inMemoryCommentsRepository.items[0].attachments.currentItems).toEqual([
+    expect(
+      inMemoryCommentsRepository.items[0].attachments.currentItems,
+    ).toEqual([
       expect.objectContaining({ attachmentId: new UniqueEntityID('1') }),
       expect.objectContaining({ attachmentId: new UniqueEntityID('3') }),
     ]);
@@ -74,9 +78,12 @@ describe('Edit Comment', () => {
     const task = makeTask({}, new UniqueEntityID('task-1'));
     await inMemoryTasksRepository.create(task);
 
-    const newComment = makeComment({
-      taskId: task.id
-    }, new UniqueEntityID('comment-1'));
+    const newComment = makeComment(
+      {
+        taskId: task.id,
+      },
+      new UniqueEntityID('comment-1'),
+    );
     await inMemoryCommentsRepository.create(newComment);
 
     // Act

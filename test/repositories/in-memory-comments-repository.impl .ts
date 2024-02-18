@@ -5,7 +5,9 @@ import { Comment } from 'src/domain/enterprise/comment.entity';
 export class InMemoryCommentsRepositoryImpl implements ICommentsRepository {
   public items: Comment[] = [];
 
-  constructor(private commentAttachmentsRepository?: ICommentAttachmentsRepository) { }
+  constructor(
+    private commentAttachmentsRepository?: ICommentAttachmentsRepository,
+  ) {}
 
   async create(data: Comment): Promise<void> {
     this.items.push(data);
@@ -23,7 +25,6 @@ export class InMemoryCommentsRepositoryImpl implements ICommentsRepository {
   }
 
   async delete(id: string): Promise<void> {
-
     const index = this.items.findIndex((item) => item.id.toString() === id);
     if (index !== -1) {
       this.items.splice(index, 1);

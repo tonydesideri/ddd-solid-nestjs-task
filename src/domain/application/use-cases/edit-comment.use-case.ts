@@ -24,7 +24,7 @@ export class EditCommentUseCase {
   constructor(
     private commentsRepository: ICommentsRepository,
     private commentAttachmentsRepository: ICommentAttachmentsRepository,
-  ) { }
+  ) {}
 
   async execute({
     commentId,
@@ -40,7 +40,9 @@ export class EditCommentUseCase {
     const currentCommentAttachments =
       await this.commentAttachmentsRepository.findManyByCommentId(commentId);
 
-    const commentAttachmentList = new CommentAttachmentList(currentCommentAttachments);
+    const commentAttachmentList = new CommentAttachmentList(
+      currentCommentAttachments,
+    );
 
     const commentAttachments = attachmentsIds.map((attachmentId) => {
       return CommentAttachment.instance({

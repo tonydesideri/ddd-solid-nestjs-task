@@ -8,7 +8,7 @@ export interface CommentProps {
   content: string;
   attachments: CommentAttachmentList;
   createdAt: Date;
-  updatedAt?: Date;
+  updatedAt?: Date | null;
 }
 
 export class Comment extends Entity<CommentProps> {
@@ -21,7 +21,6 @@ export class Comment extends Entity<CommentProps> {
         ...props,
         attachments: props.attachments || new CommentAttachmentList(),
         createdAt: props.createdAt || new Date(),
-        updatedAt: props.updatedAt || null,
       },
       id,
     );

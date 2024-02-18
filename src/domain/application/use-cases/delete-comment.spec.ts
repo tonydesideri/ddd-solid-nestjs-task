@@ -30,9 +30,12 @@ describe('DeleteCommentUseCase', () => {
     const task = makeTask({}, new UniqueEntityID('task-1'));
     await inMemoryTasksRepository.create(task);
 
-    const newComment = makeComment({
-      taskId: task.id
-    }, new UniqueEntityID('comment-1'));
+    const newComment = makeComment(
+      {
+        taskId: task.id,
+      },
+      new UniqueEntityID('comment-1'),
+    );
     await inMemoryCommentsRepository.create(newComment);
 
     inMemoryCommentAttachmentsRepository.items.push(
@@ -60,13 +63,18 @@ describe('DeleteCommentUseCase', () => {
     const task = makeTask({}, new UniqueEntityID('task-1'));
     await inMemoryTasksRepository.create(task);
 
-    const newComment = makeComment({
-      taskId: task.id
-    }, new UniqueEntityID('comment-1'));
+    const newComment = makeComment(
+      {
+        taskId: task.id,
+      },
+      new UniqueEntityID('comment-1'),
+    );
     await inMemoryCommentsRepository.create(newComment);
 
     // Act
-    const result = await deleteCommentUseCase.execute({ id: 'another-comment-1' });
+    const result = await deleteCommentUseCase.execute({
+      id: 'another-comment-1',
+    });
 
     // Assert
     // Verifica se a execução do caso de uso lança um erro quando a tarefa não é encontrada

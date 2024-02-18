@@ -8,10 +8,12 @@ import { FetchRecentTasksController } from './tasks/controllers/fetch-recent-tas
 import { EditTaskController } from './tasks/controllers/edit-task.controller';
 import { EditTaskUseCase } from 'src/domain/application/use-cases/edit-task.use-case';
 import { PrismaTaskAttachmentsRepositoryImpl } from '../database/prisma/repositories/prisma-task-attachments-repository.impl';
+import { DeleteTaskController } from './tasks/controllers/delete-task.controller';
+import { DeleteTaskUseCase } from 'src/domain/application/use-cases/delete-task.use-case';
 
 @Module({
   imports: [DatabaseModule],
-  controllers: [CreateTaskController, FetchRecentTasksController, EditTaskController],
+  controllers: [CreateTaskController, FetchRecentTasksController, EditTaskController, DeleteTaskController],
   providers: [
     {
       provide: CreateTaskUseCase,
@@ -33,6 +35,12 @@ import { PrismaTaskAttachmentsRepositoryImpl } from '../database/prisma/reposito
       ) =>
         new EditTaskUseCase(tasksRepository, taskAttachmentsRepository),
       inject: [PrismaTasksRepositoryImpl, PrismaTaskAttachmentsRepositoryImpl],
+    },
+    {
+      provide: DeleteTaskUseCase,
+      useFactory: (repository: PrismaTasksRepositoryImpl) =>
+        new DeleteTaskUseCase(repository),
+      inject: [PrismaTasksRepositoryImpl],
     },
   ],
 })

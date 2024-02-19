@@ -4,6 +4,7 @@ import { PrismaTasksRepositoryImpl } from './prisma/repositories/prisma-tasks-re
 import { PrismaTaskAttachmentsRepositoryImpl } from './prisma/repositories/prisma-task-attachments-repository.impl';
 import { PrismaCommentsRepositoryImpl } from './prisma/repositories/prisma-comments-repository.impl';
 import { PrismaCommentAttachmentsRepositoryImpl } from './prisma/repositories/prisma-comment-attachments-repository.impl';
+import { PrismaAttachmentsRepositoryImpl } from './prisma/repositories/prisma-attachment-repository.impl';
 
 @Module({
   providers: [
@@ -12,6 +13,7 @@ import { PrismaCommentAttachmentsRepositoryImpl } from './prisma/repositories/pr
     PrismaTaskAttachmentsRepositoryImpl,
     PrismaCommentsRepositoryImpl,
     PrismaCommentAttachmentsRepositoryImpl,
+    PrismaAttachmentsRepositoryImpl
   ],
   exports: [
     PrismaService,
@@ -19,6 +21,7 @@ import { PrismaCommentAttachmentsRepositoryImpl } from './prisma/repositories/pr
     PrismaTaskAttachmentsRepositoryImpl,
     PrismaCommentsRepositoryImpl,
     PrismaCommentAttachmentsRepositoryImpl,
+    PrismaAttachmentsRepositoryImpl
   ],
 })
-export class DatabaseModule {}
+export class DatabaseModule { }

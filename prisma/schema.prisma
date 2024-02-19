@@ -47,7 +47,8 @@ model Comment {
 
 model Attachment {
   id        String  @id @default(uuid())
-  content   String
+  title     String
+  path      String
   taskId    String? @map("task_id")
   commentId String? @map("comment_id")
 

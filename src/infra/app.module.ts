@@ -4,8 +4,11 @@ import { EnvService } from './env/env.service';
 import { HttpModule } from './http/http.module';
 
 @Module({
-  imports: [EnvModule, HttpModule],
+  imports: [
+    EnvModule,
+    HttpModule
+  ],
   controllers: [],
   providers: [EnvService],
 })
-export class AppModule {}
+export class AppModule { }

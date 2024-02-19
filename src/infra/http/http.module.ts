@@ -12,10 +12,22 @@ import { DeleteTaskController } from './tasks/controllers/delete-task.controller
 import { DeleteTaskUseCase } from 'src/domain/application/use-cases/delete-task.use-case';
 import { ChangeFavoriteTaskUseCase } from 'src/domain/application/use-cases/change-favorite-task.use-case';
 import { ChangeFavoriteTaskController } from './tasks/controllers/change-favorite-task.controller';
+import { UploadAttachmentController } from './attachments/upload-attachment.controller';
+import { StorageModule } from '../storage/storage.module';
+import { UploadAndCreateAttachmentUseCase } from 'src/domain/application/use-cases/upload-and-create-attachment.use-case';
+import { FileSystemStorageImpl } from '../storage/local-storage.impl';
+import { PrismaAttachmentsRepositoryImpl } from '../database/prisma/repositories/prisma-attachment-repository.impl';
 
 @Module({
-  imports: [DatabaseModule],
-  controllers: [CreateTaskController, FetchRecentTasksController, EditTaskController, DeleteTaskController, ChangeFavoriteTaskController],
+  imports: [DatabaseModule, StorageModule],
+  controllers: [
+    CreateTaskController,
+    FetchRecentTasksController,
+    EditTaskController,
+    DeleteTaskController,
+    ChangeFavoriteTaskController,
+    UploadAttachmentController
+  ],
   providers: [
     {
       provide: CreateTaskUseCase,
@@ -49,6 +61,12 @@ import { ChangeFavoriteTaskController } from './tasks/controllers/change-favorit
       useFactory: (repository: PrismaTasksRepositoryImpl) =>
         new ChangeFavoriteTaskUseCase(repository),
       inject: [PrismaTasksRepositoryImpl],
+    },
+    {
+      provide: UploadAndCreateAttachmentUseCase,
+      useFactory: (repository: PrismaAttachmentsRepositoryImpl, storage: FileSystemStorageImpl) =>
+        new UploadAndCreateAttachmentUseCase(repository, storage),
+      inject: [PrismaAttachmentsRepositoryImpl, FileSystemStorageImpl],
     },
   ],
 })

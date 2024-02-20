@@ -3,7 +3,7 @@ import { ICommentsRepository } from '../repositories/comments-repository.contrac
 import { ResourceNotFoundError } from './errors/resource-not-found-error';
 
 interface DeleteCommentUseCaseRequest {
-  id: string;
+  commentId: string;
 }
 
 type DeleteCommentUseCaseResponse = Either<ResourceNotFoundError, object>;
@@ -12,15 +12,15 @@ export class DeleteCommentUseCase {
   constructor(private commentsRepository: ICommentsRepository) {}
 
   async execute({
-    id,
+    commentId,
   }: DeleteCommentUseCaseRequest): Promise<DeleteCommentUseCaseResponse> {
-    const comment = await this.commentsRepository.findById(id);
+    const comment = await this.commentsRepository.findById(commentId);
 
     if (!comment) {
       return failure(new ResourceNotFoundError('Tarefa não encontrada.'));
     }
 
-    await this.commentsRepository.delete(id);
+    await this.commentsRepository.delete(commentId);
 
     return success({});
   }

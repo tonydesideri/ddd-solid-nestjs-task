@@ -38,7 +38,7 @@ describe('DeleteTaskUseCase', () => {
     );
 
     // Act
-    await deleteTaskUseCase.execute({ id: 'task-1' });
+    await deleteTaskUseCase.execute({ taskId: 'task-1' });
 
     // Assert
     // Verifica se a tarefa foi removida corretamente do repositório
@@ -52,7 +52,7 @@ describe('DeleteTaskUseCase', () => {
     await inMemoryTasksRepository.create(newTask);
 
     // Act
-    const result = await deleteTaskUseCase.execute({ id: 'another-task-1' });
+    const result = await deleteTaskUseCase.execute({ taskId: 'another-task-1' });
 
     // Assert
     // Verifica se a execução do caso de uso lança um erro quando a tarefa não é encontrada

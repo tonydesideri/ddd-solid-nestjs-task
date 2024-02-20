@@ -7,14 +7,14 @@ export class InMemoryCommentsRepositoryImpl implements ICommentsRepository {
 
   constructor(
     private commentAttachmentsRepository?: ICommentAttachmentsRepository,
-  ) {}
+  ) { }
 
   async create(data: Comment): Promise<void> {
     this.items.push(data);
   }
 
-  async findById(id: string): Promise<Comment> {
-    return this.items.find((item) => item.id.toString() === id) || null;
+  async findById(commentId: string): Promise<Comment> {
+    return this.items.find((item) => item.id.toString() === commentId) || null;
   }
 
   async save(data: Comment): Promise<void> {
@@ -24,11 +24,11 @@ export class InMemoryCommentsRepositoryImpl implements ICommentsRepository {
     }
   }
 
-  async delete(id: string): Promise<void> {
-    const index = this.items.findIndex((item) => item.id.toString() === id);
+  async delete(commentId: string): Promise<void> {
+    const index = this.items.findIndex((item) => item.id.toString() === commentId);
     if (index !== -1) {
       this.items.splice(index, 1);
-      await this.commentAttachmentsRepository.deleteManyByCommentId(id);
+      await this.commentAttachmentsRepository.deleteManyByCommentId(commentId);
     }
   }
 }

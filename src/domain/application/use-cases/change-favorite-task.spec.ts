@@ -34,7 +34,7 @@ describe('ChangeFavoriteTaskUseCase', () => {
     await inMemoryTasksRepository.create(newTask);
 
     // Act
-    await changeFavoriteTaskUseCase.execute({ id: 'task-1' });
+    await changeFavoriteTaskUseCase.execute({ taskId: 'task-1' });
 
     // Assert
     // Verifica se a tarefa alterou o isFavorite
@@ -48,7 +48,7 @@ describe('ChangeFavoriteTaskUseCase', () => {
 
     // Act
     const result = await changeFavoriteTaskUseCase.execute({
-      id: 'another-task-1',
+      taskId: 'another-task-1',
     });
     // Assert
     // Verifica se a execução lançou um erro

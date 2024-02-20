@@ -11,7 +11,7 @@ export class DeleteTaskController {
   @HttpCode(204)
   async handle(@Param('id') taskId: string) {
     const result = await this.deleteTaskUseCase.execute({
-      id: taskId
+      taskId
     });
 
     if (result.isFailure()) {

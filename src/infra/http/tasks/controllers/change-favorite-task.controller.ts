@@ -11,7 +11,7 @@ export class ChangeFavoriteTaskController {
   @HttpCode(204)
   async handle(@Param('id') taskId: string) {
     const result = await this.changeFavoriteTaskUseCase.execute({
-      id: taskId
+      taskId
     });
 
     if (result.isFailure()) {

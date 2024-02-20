@@ -3,24 +3,24 @@ import { ITasksRepository } from '../repositories/tasks-repository.contract';
 import { ResourceNotFoundError } from './errors/resource-not-found-error';
 
 interface DeleteTaskUseCaseRequest {
-  id: string;
+  taskId: string;
 }
 
 type DeleteTaskUseCaseResponse = Either<ResourceNotFoundError, object>;
 
 export class DeleteTaskUseCase {
-  constructor(private tasksRepository: ITasksRepository) {}
+  constructor(private tasksRepository: ITasksRepository) { }
 
   async execute({
-    id,
+    taskId,
   }: DeleteTaskUseCaseRequest): Promise<DeleteTaskUseCaseResponse> {
-    const task = await this.tasksRepository.findById(id);
+    const task = await this.tasksRepository.findById(taskId);
 
     if (!task) {
       return failure(new ResourceNotFoundError('Tarefa não encontrada.'));
     }
 
-    await this.tasksRepository.delete(id);
+    await this.tasksRepository.delete(taskId);
 
     return success({});
   }

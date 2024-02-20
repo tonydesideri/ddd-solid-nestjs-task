@@ -47,7 +47,7 @@ describe('DeleteCommentUseCase', () => {
     );
 
     // Act
-    await deleteCommentUseCase.execute({ id: 'comment-1' });
+    await deleteCommentUseCase.execute({ commentId: 'comment-1' });
 
     // Assert
     // Verifica se a tarefa foi removida corretamente do repositório
@@ -66,7 +66,7 @@ describe('DeleteCommentUseCase', () => {
     await inMemoryCommentsRepository.create(newComment);
 
     // Act
-    const result = await deleteCommentUseCase.execute({ id: 'another-comment-1' });
+    const result = await deleteCommentUseCase.execute({ commentId: 'another-comment-1' });
 
     // Assert
     // Verifica se a execução do caso de uso lança um erro quando a tarefa não é encontrada

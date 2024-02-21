@@ -47,5 +47,13 @@ describe('Create Task (e2e)', () => {
     });
 
     expect(taskOnDatabase).toBeTruthy();
+
+    const attachmentOnDatabase = await prisma.attachment.findMany({
+      where: {
+        taskId: taskOnDatabase.id,
+      },
+    });
+
+    expect(attachmentOnDatabase).toHaveLength(2);
   });
 });

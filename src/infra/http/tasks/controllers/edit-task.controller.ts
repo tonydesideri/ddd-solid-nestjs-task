@@ -11,12 +11,12 @@ export class EditTaskController {
   @Put()
   @HttpCode(204)
   async handle(@Body() body: EditTaskDto, @Param('id') taskId: string) {
-    const { title, description } = body;
+    const { title, description, attachmentsIds } = body;
 
     const result = await this.editTaskUseCase.execute({
       title,
       description,
-      attachmentsIds: [],
+      attachmentsIds,
       taskId
     });
 

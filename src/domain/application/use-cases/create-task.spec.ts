@@ -41,4 +41,18 @@ describe('CreateTaskUseCase', () => {
       expect.objectContaining({ attachmentId: new UniqueEntityID('2') }),
     ]);
   });
+
+  it('should create a attachments', async () => {
+    // Act
+    const result = await createTaskUseCase.execute({
+      title: 'Title',
+      description: 'Description',
+      attachmentsIds: ['1', '2'],
+    });
+
+    // Assert
+    expect(result.isSuccess()).toBe(true);
+    //Verifica se o items possui uma posição depois da crição
+    expect(inMemoryTaskAttachmentsRepository.items).toHaveLength(2);
+  });
 });

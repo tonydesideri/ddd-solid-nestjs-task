@@ -3,17 +3,25 @@ import { InMemoryTasksRepositoryImpl } from 'test/repositories/in-memory-tasks-r
 import { CreateCommentUseCase } from './create-comment.use-case';
 import { makeTask } from 'test/factories/make-task.factory';
 import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
+import { InMemoryTaskAttachmentsRepositoryImpl } from 'test/repositories/in-memory-task-attachments-repository.impl ';
+import { InMemoryCommentAttachmentsRepositoryImpl } from 'test/repositories/in-memory-comment-attachments-repository.impl ';
 
 describe('CreateCommentUseCase', () => {
   // Arrange
+  let inMemoryTaskAttachmentsRepository: InMemoryTaskAttachmentsRepositoryImpl
   let inMemoryTasksRepository: InMemoryTasksRepositoryImpl;
+
+  let inMemoryCommentAttachmentsRepository: InMemoryCommentAttachmentsRepositoryImpl
   let inMemoryCommentsRepository: InMemoryCommentsRepositoryImpl;
 
   let createCommentUseCase: CreateCommentUseCase;
 
   beforeEach(() => {
-    inMemoryTasksRepository = new InMemoryTasksRepositoryImpl();
-    inMemoryCommentsRepository = new InMemoryCommentsRepositoryImpl();
+    inMemoryTaskAttachmentsRepository = new InMemoryTaskAttachmentsRepositoryImpl()
+    inMemoryTasksRepository = new InMemoryTasksRepositoryImpl(inMemoryTaskAttachmentsRepository);
+
+    inMemoryCommentAttachmentsRepository = new InMemoryCommentAttachmentsRepositoryImpl()
+    inMemoryCommentsRepository = new InMemoryCommentsRepositoryImpl(inMemoryCommentAttachmentsRepository);
 
     createCommentUseCase = new CreateCommentUseCase(
       inMemoryTasksRepository,

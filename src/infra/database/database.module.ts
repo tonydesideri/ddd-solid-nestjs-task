@@ -5,6 +5,7 @@ import { PrismaTaskAttachmentsRepositoryImpl } from './prisma/repositories/prism
 import { PrismaCommentsRepositoryImpl } from './prisma/repositories/prisma-comments-repository.impl';
 import { PrismaCommentAttachmentsRepositoryImpl } from './prisma/repositories/prisma-comment-attachments-repository.impl';
 import { PrismaAttachmentsRepositoryImpl } from './prisma/repositories/prisma-attachment-repository.impl';
+import { ITaskAttachmentsRepository } from 'src/domain/application/repositories/task-attachments-repository.contract';
 
 @Module({
   providers: [
@@ -13,12 +14,17 @@ import { PrismaAttachmentsRepositoryImpl } from './prisma/repositories/prisma-at
     PrismaTaskAttachmentsRepositoryImpl,
     PrismaCommentsRepositoryImpl,
     PrismaCommentAttachmentsRepositoryImpl,
-    PrismaAttachmentsRepositoryImpl
+    PrismaAttachmentsRepositoryImpl,
+    {
+      provide: ITaskAttachmentsRepository,
+      useClass: PrismaTaskAttachmentsRepositoryImpl
+    }
   ],
   exports: [
     PrismaService,
     PrismaTasksRepositoryImpl,
     PrismaTaskAttachmentsRepositoryImpl,
+    ITaskAttachmentsRepository,
     PrismaCommentsRepositoryImpl,
     PrismaCommentAttachmentsRepositoryImpl,
     PrismaAttachmentsRepositoryImpl

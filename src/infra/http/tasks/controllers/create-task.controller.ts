@@ -8,12 +8,12 @@ export class CreateTaskController {
 
   @Post()
   async handle(@Body() body: CreateTaskDto) {
-    const { title, description } = body;
+    const { title, description, attachmentsIds } = body;
 
     const result = await this.createTaskUseCase.execute({
       title,
       description,
-      attachmentsIds: [],
+      attachmentsIds: attachmentsIds,
     });
 
     if (result.isFailure()) {

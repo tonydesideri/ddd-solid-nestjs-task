@@ -2,12 +2,25 @@ import { ITaskAttachmentsRepository } from 'src/domain/application/repositories/
 import { TaskAttachment } from 'src/domain/enterprise/task-attachment.entity';
 
 export class InMemoryTaskAttachmentsRepositoryImpl
-  implements ITaskAttachmentsRepository
-{
+  implements ITaskAttachmentsRepository {
   public items: TaskAttachment[] = [];
 
+  async createMany(attachments: TaskAttachment[]): Promise<void> {
+    this.items.push(...attachments)
+  }
+
+  async deleteMany(attachments: TaskAttachment[]): Promise<void> {
+    const taskAttachments = this.items.filter(
+      (item) => {
+        return !attachments.some((attachment) => attachment.equals(item))
+      },
+    );
+
+    this.items = taskAttachments;
+  }
+
   async findManyByTaskId(taskId: string): Promise<TaskAttachment[]> {
-    return this.items.filter((item) => item.attachmentId.toString() === taskId);
+    return this.items.filter((item) => item.taskId.toString() === taskId);
   }
 
   async deleteManyByTaskId(taskId: string): Promise<void> {

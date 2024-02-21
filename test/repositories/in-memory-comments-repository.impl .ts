@@ -6,7 +6,7 @@ export class InMemoryCommentsRepositoryImpl implements ICommentsRepository {
   public items: Comment[] = [];
 
   constructor(
-    private commentAttachmentsRepository?: ICommentAttachmentsRepository,
+    private commentAttachmentsRepository: ICommentAttachmentsRepository,
   ) { }
 
   async create(data: Comment): Promise<void> {

@@ -7,7 +7,7 @@ const PERPAGE = 20;
 export class InMemoryTasksRepositoryImpl implements ITasksRepository {
   public items: Task[];
 
-  constructor(private taskAttachmentsRepository?: ITaskAttachmentsRepository) {
+  constructor(private taskAttachmentsRepository: ITaskAttachmentsRepository) {
     this.items = [];
   }
 
@@ -15,11 +15,17 @@ export class InMemoryTasksRepositoryImpl implements ITasksRepository {
     const index = this.items.findIndex((item) => item.id === data.id);
     if (index !== -1) {
       this.items[index] = data;
+
+      await this.taskAttachmentsRepository.createMany(data.attachments.getNewItems())
+
+      await this.taskAttachmentsRepository.deleteMany(data.attachments.getRemovedItems())
     }
   }
 
   async create(data: Task): Promise<void> {
     this.items.push(data);
+
+    await this.taskAttachmentsRepository.createMany(data.attachments.getItems())
   }
 
   async findManyRecent({ page }: PaginationParams): Promise<Task[]> {

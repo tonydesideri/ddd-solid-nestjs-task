@@ -78,4 +78,43 @@ describe('Edit Task', () => {
     expect(result.isFailure()).toBe(true);
     expect(result.value).toBeInstanceOf(ResourceNotFoundError);
   });
+
+  it('should be able to edit a Task and sync new and remove attachment', async () => {
+    const newTask = makeTask({}, new UniqueEntityID('Task-1'));
+
+    await inMemoryTasksRepository.create(newTask);
+
+    inMemoryTaskAttachmentsRepository.items.push(
+      makeTaskAttachment({
+        taskId: newTask.id,
+        attachmentId: new UniqueEntityID('1'),
+      }),
+      makeTaskAttachment({
+        taskId: newTask.id,
+        attachmentId: new UniqueEntityID('2'),
+      }),
+    );
+
+    console.log("Criação", inMemoryTaskAttachmentsRepository.items)
+
+    const result = await sut.execute({
+      taskId: newTask.id.toValue(),
+      description: 'Description',
+      title: 'Title teste',
+      attachmentsIds: ['1', '3'],
+    });
+
+    expect(result.isSuccess()).toBe(true)
+    expect(inMemoryTaskAttachmentsRepository.items).toHaveLength(2)
+    expect(inMemoryTaskAttachmentsRepository.items).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          attachmentId: new UniqueEntityID("1")
+        }),
+        expect.objectContaining({
+          attachmentId: new UniqueEntityID("3")
+        })
+      ])
+    )
+  });
 });

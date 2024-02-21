@@ -8,19 +8,22 @@ import { makeCommentAttachment } from 'test/factories/make-comment-attachment.fa
 import { InMemoryCommentsRepositoryImpl } from 'test/repositories/in-memory-comments-repository.impl ';
 import { makeTask } from 'test/factories/make-task.factory';
 import { InMemoryTasksRepositoryImpl } from 'test/repositories/in-memory-tasks-repository.impl';
+import { InMemoryTaskAttachmentsRepositoryImpl } from 'test/repositories/in-memory-task-attachments-repository.impl ';
 
 describe('Edit Comment', () => {
+  let inMemoryTaskAttachmentsRepository: InMemoryTaskAttachmentsRepositoryImpl
   let inMemoryTasksRepository: InMemoryTasksRepositoryImpl;
   let inMemoryCommentAttachmentsRepository: InMemoryCommentAttachmentsRepositoryImpl;
   let inMemoryCommentsRepository: InMemoryCommentsRepositoryImpl;
   let sut: EditCommentUseCase;
 
   beforeEach(() => {
-    inMemoryTasksRepository = new InMemoryTasksRepositoryImpl();
+    inMemoryTaskAttachmentsRepository = new InMemoryTaskAttachmentsRepositoryImpl()
+    inMemoryTasksRepository = new InMemoryTasksRepositoryImpl(inMemoryTaskAttachmentsRepository);
 
     inMemoryCommentAttachmentsRepository =
       new InMemoryCommentAttachmentsRepositoryImpl();
-    inMemoryCommentsRepository = new InMemoryCommentsRepositoryImpl();
+    inMemoryCommentsRepository = new InMemoryCommentsRepositoryImpl(inMemoryCommentAttachmentsRepository);
 
     sut = new EditCommentUseCase(
       inMemoryCommentsRepository,

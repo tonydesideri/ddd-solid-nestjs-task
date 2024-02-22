@@ -1,11 +1,13 @@
 import { PaginationParams } from 'src/core/repositories/pagination-params.contract';
 import { ITasksRepository } from 'src/domain/application/repositories/tasks-repository.contract';
 import { Task } from 'src/domain/enterprise/task.entity';
-import { TaskWithAttachment } from 'src/domain/enterprise/value-objects/task-with-attachment';
-import { InMemoryTaskAttachmentsRepositoryImpl } from './in-memory-task-attachments-repository.impl ';
-import { InMemoryAttachmentsRepositoryImpl } from './in-mamory-attachments-repository.impl';
 import { TaskLessDetails } from 'src/domain/enterprise/value-objects/task-less-details';
+import { TaskWithAttachment } from 'src/domain/enterprise/value-objects/task-with-attachment';
+import { TaskWithDetails } from 'src/domain/enterprise/value-objects/task-with-details';
+import { InMemoryAttachmentsRepositoryImpl } from './in-mamory-attachments-repository.impl';
+import { InMemoryCommentAttachmentsRepositoryImpl } from './in-memory-comment-attachments-repository.impl ';
 import { InMemoryCommentsRepositoryImpl } from './in-memory-comments-repository.impl ';
+import { InMemoryTaskAttachmentsRepositoryImpl } from './in-memory-task-attachments-repository.impl ';
 
 const PERPAGE = 20;
 export class InMemoryTasksRepositoryImpl implements ITasksRepository {
@@ -14,9 +16,72 @@ export class InMemoryTasksRepositoryImpl implements ITasksRepository {
   constructor(
     private taskAttachmentsRepository: InMemoryTaskAttachmentsRepositoryImpl,
     private attachmentRepository: InMemoryAttachmentsRepositoryImpl,
-    private commentRepository: InMemoryCommentsRepositoryImpl
+    private commentRepository: InMemoryCommentsRepositoryImpl,
+    private commentAttachmentsRepository: InMemoryCommentAttachmentsRepositoryImpl
   ) {
     this.items = [];
+  }
+
+  async findManyTasksWithDetails(): Promise<TaskWithDetails[]> {
+    const tasks = this.items
+      .sort((a: any, b: any) => b.createdAt.getTime() - a.createdAt.getTime())
+
+    const tasksWithDetails = tasks.map(task => {
+      const taskAttachments = this.taskAttachmentsRepository.items.filter(taskAttachment => {
+        return taskAttachment.taskId.equals(task.id)
+      })
+
+      const attachments = taskAttachments.map(taskAttachment => {
+        const attachment = this.attachmentRepository.items.find(attachment => {
+          return attachment.id.equals(taskAttachment.attachmentId)
+        })
+
+        if (!attachment) {
+          throw new Error(`Attachment with id ${attachment.id.toString()} does note exist.`)
+        }
+
+        return attachment
+      })
+
+      const comments = this.commentRepository.items.filter(comment => comment.taskId.equals(task.id))
+
+      const commentsWithAttachments = comments.map(comment => {
+        const commentAttachments = this.commentAttachmentsRepository.items.filter(commentAttachment => {
+          return commentAttachment.commentId.equals(comment.id)
+        })
+
+        const attachments = commentAttachments.map(commentAttachment => {
+          const attachment = this.attachmentRepository.items.find(attachment => {
+            return attachment.id.equals(commentAttachment.attachmentId)
+          })
+
+          if (!attachment) {
+            throw new Error(`Attachment with id ${attachment.id.toString()} does note exist.`)
+          }
+
+          return attachment
+        })
+
+        return {
+          content: comment.content,
+          attachments,
+          createdAt: comment.createdAt
+        }
+      })
+
+      return TaskWithDetails.instance({
+        taskId: task.id,
+        title: task.title,
+        description: task.description,
+        isFavotire: task.isFavorite,
+        status: task.status,
+        createdAt: task.createdAt,
+        attachments,
+        comments: commentsWithAttachments
+      })
+    })
+
+    return tasksWithDetails
   }
 
   async findManyTasksLessDetails(): Promise<TaskLessDetails[]> {

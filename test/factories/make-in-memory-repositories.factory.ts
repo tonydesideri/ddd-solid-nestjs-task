@@ -26,7 +26,8 @@ export function makeInMemoryRepositories(): InMemoryRepositoriesProps {
   const inMemoryTasksRepository = new InMemoryTasksRepositoryImpl(
     inMemoryTaskAttachmentsRepository,
     inMemoryAttachmentsRepository,
-    inMemoryCommentsRepository
+    inMemoryCommentsRepository,
+    inMemoryCommentAttachmentsRepository
   );
 
   return {

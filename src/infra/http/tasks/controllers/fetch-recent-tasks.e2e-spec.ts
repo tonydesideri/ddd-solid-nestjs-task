@@ -60,13 +60,8 @@ describe('Fetch recent tasks (E2E)', () => {
     const response = await request(app.getHttpServer())
       .get('/tasks?page=1')
       .send()
-    console.log(response.body.tasks.map(item => {
-      return item.attachments
-    }))
 
     expect(response.statusCode).toBe(200)
-    // expect(response.body.tasks[0].attachments[0].title).toBe("Attachment 1")
-
     expect(response.body).toEqual({
       tasks: expect.arrayContaining([
         expect.objectContaining({

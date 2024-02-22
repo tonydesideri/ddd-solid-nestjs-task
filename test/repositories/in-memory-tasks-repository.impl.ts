@@ -4,6 +4,8 @@ import { Task } from 'src/domain/enterprise/task.entity';
 import { TaskWithAttachment } from 'src/domain/enterprise/value-objects/task-with-attachment';
 import { InMemoryTaskAttachmentsRepositoryImpl } from './in-memory-task-attachments-repository.impl ';
 import { InMemoryAttachmentsRepositoryImpl } from './in-mamory-attachments-repository.impl';
+import { TaskLessDetails } from 'src/domain/enterprise/value-objects/task-less-details';
+import { InMemoryCommentsRepositoryImpl } from './in-memory-comments-repository.impl ';
 
 const PERPAGE = 20;
 export class InMemoryTasksRepositoryImpl implements ITasksRepository {
@@ -11,9 +13,34 @@ export class InMemoryTasksRepositoryImpl implements ITasksRepository {
 
   constructor(
     private taskAttachmentsRepository: InMemoryTaskAttachmentsRepositoryImpl,
-    private attachmentRepository: InMemoryAttachmentsRepositoryImpl
+    private attachmentRepository: InMemoryAttachmentsRepositoryImpl,
+    private commentRepository: InMemoryCommentsRepositoryImpl
   ) {
     this.items = [];
+  }
+
+  async findManyTasksLessDetails(): Promise<TaskLessDetails[]> {
+    const tasks = this.items
+      .sort((a: any, b: any) => b.createdAt.getTime() - a.createdAt.getTime())
+
+    const tasksLessDetails = tasks.map(task => {
+      const quantityAttachments =
+        this.attachmentRepository.items.map(attachment => attachment.id.equals(task.id)).length
+
+      const quantityComments =
+        this.commentRepository.items.map(comment => comment.id.equals(task.id)).length
+
+      return TaskLessDetails.instance({
+        taskId: task.id,
+        title: task.title,
+        status: task.status,
+        quantityAttachments,
+        quantityComments,
+        createdAt: task.createdAt
+      })
+    })
+
+    return tasksLessDetails
   }
 
   async findManyRencentTasksWithAttachments({ page }: PaginationParams): Promise<TaskWithAttachment[]> {

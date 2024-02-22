@@ -6,20 +6,28 @@ import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 import { makeTaskAttachment } from 'test/factories/make-task-attachment.factory';
 import { ResourceNotFoundError } from './errors/resource-not-found-error';
 import { InMemoryAttachmentsRepositoryImpl } from 'test/repositories/in-mamory-attachments-repository.impl';
+import { InMemoryCommentAttachmentsRepositoryImpl } from 'test/repositories/in-memory-comment-attachments-repository.impl ';
+import { InMemoryCommentsRepositoryImpl } from 'test/repositories/in-memory-comments-repository.impl ';
 
 describe('Edit Task', () => {
   let inMemoryTaskAttachmentsRepository: InMemoryTaskAttachmentsRepositoryImpl;
   let inMemoryTasksRepository: InMemoryTasksRepositoryImpl;
   let inMemoryAttachmentsRepository: InMemoryAttachmentsRepositoryImpl
+  let inMemoryCommentAttachmentsRepository: InMemoryCommentAttachmentsRepositoryImpl
+  let inMemoryCommentsRepository: InMemoryCommentsRepositoryImpl
+
   let sut: EditTaskUseCase;
 
   beforeEach(() => {
+    inMemoryCommentAttachmentsRepository = new InMemoryCommentAttachmentsRepositoryImpl()
+    inMemoryCommentsRepository = new InMemoryCommentsRepositoryImpl(inMemoryCommentAttachmentsRepository)
     inMemoryTaskAttachmentsRepository =
       new InMemoryTaskAttachmentsRepositoryImpl();
     inMemoryAttachmentsRepository = new InMemoryAttachmentsRepositoryImpl()
     inMemoryTasksRepository = new InMemoryTasksRepositoryImpl(
       inMemoryTaskAttachmentsRepository,
-      inMemoryAttachmentsRepository
+      inMemoryAttachmentsRepository,
+      inMemoryCommentsRepository
     );
 
     sut = new EditTaskUseCase(
@@ -98,8 +106,6 @@ describe('Edit Task', () => {
         attachmentId: new UniqueEntityID('2'),
       }),
     );
-
-    console.log("Criação", inMemoryTaskAttachmentsRepository.items)
 
     const result = await sut.execute({
       taskId: newTask.id.toValue(),

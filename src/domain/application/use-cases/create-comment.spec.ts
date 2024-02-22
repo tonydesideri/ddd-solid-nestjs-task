@@ -23,7 +23,8 @@ describe('CreateCommentUseCase', () => {
     inMemoryTaskAttachmentsRepository = new InMemoryTaskAttachmentsRepositoryImpl()
     inMemoryTasksRepository = new InMemoryTasksRepositoryImpl(
       inMemoryTaskAttachmentsRepository,
-      inMemoryAttachmentsRepository
+      inMemoryAttachmentsRepository,
+      inMemoryCommentsRepository
     );
 
     inMemoryCommentAttachmentsRepository = new InMemoryCommentAttachmentsRepositoryImpl()

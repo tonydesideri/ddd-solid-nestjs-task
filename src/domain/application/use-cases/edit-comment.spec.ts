@@ -24,7 +24,8 @@ describe('Edit Comment', () => {
     inMemoryAttachmentsRepository = new InMemoryAttachmentsRepositoryImpl()
     inMemoryTasksRepository = new InMemoryTasksRepositoryImpl(
       inMemoryTaskAttachmentsRepository,
-      inMemoryAttachmentsRepository
+      inMemoryAttachmentsRepository,
+      inMemoryCommentsRepository
     );
     inMemoryCommentAttachmentsRepository =
       new InMemoryCommentAttachmentsRepositoryImpl();

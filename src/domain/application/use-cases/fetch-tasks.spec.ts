@@ -5,21 +5,28 @@ import { InMemoryTaskAttachmentsRepositoryImpl } from 'test/repositories/in-memo
 import { InMemoryAttachmentsRepositoryImpl } from 'test/repositories/in-mamory-attachments-repository.impl';
 import { makeAttachment } from 'test/factories/make-attachment.factory';
 import { makeTaskAttachment } from 'test/factories/make-task-attachment.factory';
+import { InMemoryCommentAttachmentsRepositoryImpl } from 'test/repositories/in-memory-comment-attachments-repository.impl ';
+import { InMemoryCommentsRepositoryImpl } from 'test/repositories/in-memory-comments-repository.impl ';
 
 describe('FetchTasksUseCase', () => {
   let inMemoryTaskAttachmentsRepository: InMemoryTaskAttachmentsRepositoryImpl;
   let inMemoryTasksRepository: InMemoryTasksRepositoryImpl;
   let inMemoryAttachmentsRepository: InMemoryAttachmentsRepositoryImpl
+  let inMemoryCommentAttachmentsRepository: InMemoryCommentAttachmentsRepositoryImpl
+  let inMemoryCommentsRepository: InMemoryCommentsRepositoryImpl
 
   let fetchTasksUseCase: FetchTasksUseCase;
 
   beforeEach(() => {
+    inMemoryCommentAttachmentsRepository = new InMemoryCommentAttachmentsRepositoryImpl()
+    inMemoryCommentsRepository = new InMemoryCommentsRepositoryImpl(inMemoryCommentAttachmentsRepository)
     inMemoryAttachmentsRepository = new InMemoryAttachmentsRepositoryImpl()
     inMemoryTaskAttachmentsRepository =
       new InMemoryTaskAttachmentsRepositoryImpl();
     inMemoryTasksRepository = new InMemoryTasksRepositoryImpl(
       inMemoryTaskAttachmentsRepository,
-      inMemoryAttachmentsRepository
+      inMemoryAttachmentsRepository,
+      inMemoryCommentsRepository
     );
 
     fetchTasksUseCase = new FetchTasksUseCase(inMemoryTasksRepository);
@@ -62,8 +69,6 @@ describe('FetchTasksUseCase', () => {
 
     // Act
     const result = await fetchTasksUseCase.execute({ page: 1 });
-
-    console.log(result.value)
 
     //Verifica se a execução de sucesso
     expect(result.isSuccess()).toBe(true);

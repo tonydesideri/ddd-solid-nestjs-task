@@ -6,20 +6,28 @@ import { InMemoryTasksRepositoryImpl } from 'test/repositories/in-memory-tasks-r
 import { InMemoryTaskAttachmentsRepositoryImpl } from 'test/repositories/in-memory-task-attachments-repository.impl ';
 import { makeTaskAttachment } from 'test/factories/make-task-attachment.factory';
 import { InMemoryAttachmentsRepositoryImpl } from 'test/repositories/in-mamory-attachments-repository.impl';
+import { InMemoryCommentAttachmentsRepositoryImpl } from 'test/repositories/in-memory-comment-attachments-repository.impl ';
+import { InMemoryCommentsRepositoryImpl } from 'test/repositories/in-memory-comments-repository.impl ';
 
 describe('DeleteTaskUseCase', () => {
   let inMemoryTasksRepository: InMemoryTasksRepositoryImpl;
   let inMemoryTaskAttachmentsRepository: InMemoryTaskAttachmentsRepositoryImpl;
   let inMemoryAttachmentsRepository: InMemoryAttachmentsRepositoryImpl
+  let inMemoryCommentAttachmentsRepository: InMemoryCommentAttachmentsRepositoryImpl
+  let inMemoryCommentsRepository: InMemoryCommentsRepositoryImpl
+
   let deleteTaskUseCase: DeleteTaskUseCase;
 
   beforeEach(() => {
+    inMemoryCommentAttachmentsRepository = new InMemoryCommentAttachmentsRepositoryImpl()
+    inMemoryCommentsRepository = new InMemoryCommentsRepositoryImpl(inMemoryCommentAttachmentsRepository)
     inMemoryAttachmentsRepository = new InMemoryAttachmentsRepositoryImpl()
     inMemoryTaskAttachmentsRepository =
       new InMemoryTaskAttachmentsRepositoryImpl();
     inMemoryTasksRepository = new InMemoryTasksRepositoryImpl(
       inMemoryTaskAttachmentsRepository,
-      inMemoryAttachmentsRepository
+      inMemoryAttachmentsRepository,
+      inMemoryCommentsRepository
     );
 
     deleteTaskUseCase = new DeleteTaskUseCase(inMemoryTasksRepository);

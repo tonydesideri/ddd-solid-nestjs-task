@@ -23,7 +23,8 @@ describe('DeleteCommentUseCase', () => {
     inMemoryAttachmentsRepositoryImpl = new InMemoryAttachmentsRepositoryImpl()
     inMemoryTasksRepository = new InMemoryTasksRepositoryImpl(
       inMemoryTaskAttachmentsRepository,
-      inMemoryAttachmentsRepositoryImpl
+      inMemoryAttachmentsRepositoryImpl,
+      inMemoryCommentsRepository
     );
     inMemoryCommentAttachmentsRepository =
       new InMemoryCommentAttachmentsRepositoryImpl();

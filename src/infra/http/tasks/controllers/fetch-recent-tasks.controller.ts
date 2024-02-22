@@ -1,6 +1,6 @@
 import { BadRequestException, Controller, Get, Query } from '@nestjs/common';
 import { FetchTasksUseCase } from 'src/domain/application/use-cases/fetch-tasks.use-case';
-import { TaskPresenter } from '../task.presenter';
+import { TaskWithAttachmentPresenter } from '../presenters/task-with-attachment.presenter';
 
 @Controller('tasks')
 export class FetchRecentTasksController {
@@ -14,7 +14,7 @@ export class FetchRecentTasksController {
       throw new BadRequestException();
     }
 
-    const tasks = result.value.tasks.map(TaskPresenter.toHTTP);
+    const tasks = result.value.tasks.map(TaskWithAttachmentPresenter.toHTTP);
 
     return { tasks };
   }

@@ -5,17 +5,21 @@ import { ResourceNotFoundError } from './errors/resource-not-found-error';
 import { InMemoryTasksRepositoryImpl } from 'test/repositories/in-memory-tasks-repository.impl';
 import { InMemoryTaskAttachmentsRepositoryImpl } from 'test/repositories/in-memory-task-attachments-repository.impl ';
 import { makeTaskAttachment } from 'test/factories/make-task-attachment.factory';
+import { InMemoryAttachmentsRepositoryImpl } from 'test/repositories/in-mamory-attachments-repository.impl';
 
 describe('DeleteTaskUseCase', () => {
   let inMemoryTasksRepository: InMemoryTasksRepositoryImpl;
   let inMemoryTaskAttachmentsRepository: InMemoryTaskAttachmentsRepositoryImpl;
+  let inMemoryAttachmentsRepository: InMemoryAttachmentsRepositoryImpl
   let deleteTaskUseCase: DeleteTaskUseCase;
 
   beforeEach(() => {
+    inMemoryAttachmentsRepository = new InMemoryAttachmentsRepositoryImpl()
     inMemoryTaskAttachmentsRepository =
       new InMemoryTaskAttachmentsRepositoryImpl();
     inMemoryTasksRepository = new InMemoryTasksRepositoryImpl(
       inMemoryTaskAttachmentsRepository,
+      inMemoryAttachmentsRepository
     );
 
     deleteTaskUseCase = new DeleteTaskUseCase(inMemoryTasksRepository);

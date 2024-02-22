@@ -2,18 +2,24 @@ import { makeTask } from 'test/factories/make-task.factory';
 import { FetchTasksUseCase } from './fetch-tasks.use-case';
 import { InMemoryTasksRepositoryImpl } from 'test/repositories/in-memory-tasks-repository.impl';
 import { InMemoryTaskAttachmentsRepositoryImpl } from 'test/repositories/in-memory-task-attachments-repository.impl ';
+import { InMemoryAttachmentsRepositoryImpl } from 'test/repositories/in-mamory-attachments-repository.impl';
+import { makeAttachment } from 'test/factories/make-attachment.factory';
+import { makeTaskAttachment } from 'test/factories/make-task-attachment.factory';
 
 describe('FetchTasksUseCase', () => {
   let inMemoryTaskAttachmentsRepository: InMemoryTaskAttachmentsRepositoryImpl;
   let inMemoryTasksRepository: InMemoryTasksRepositoryImpl;
+  let inMemoryAttachmentsRepository: InMemoryAttachmentsRepositoryImpl
 
   let fetchTasksUseCase: FetchTasksUseCase;
 
   beforeEach(() => {
+    inMemoryAttachmentsRepository = new InMemoryAttachmentsRepositoryImpl()
     inMemoryTaskAttachmentsRepository =
       new InMemoryTaskAttachmentsRepositoryImpl();
     inMemoryTasksRepository = new InMemoryTasksRepositoryImpl(
       inMemoryTaskAttachmentsRepository,
+      inMemoryAttachmentsRepository
     );
 
     fetchTasksUseCase = new FetchTasksUseCase(inMemoryTasksRepository);
@@ -21,18 +27,43 @@ describe('FetchTasksUseCase', () => {
 
   it('should be fetch all recent tasks', async () => {
     // Assert
-    inMemoryTasksRepository.create(
-      makeTask({ createdAt: new Date(2024, 1, 20) }),
-    );
-    inMemoryTasksRepository.create(
-      makeTask({ createdAt: new Date(2024, 1, 18) }),
-    );
-    inMemoryTasksRepository.create(
-      makeTask({ createdAt: new Date(2024, 1, 23) }),
-    );
+    const task1 = makeTask({ createdAt: new Date(2024, 1, 20) })
+    const task2 = makeTask({ createdAt: new Date(2024, 1, 18) })
+    const task3 = makeTask({ createdAt: new Date(2024, 1, 23) })
+
+    inMemoryTasksRepository.items.push(task1);
+    inMemoryTasksRepository.items.push(task2);
+    inMemoryTasksRepository.items.push(task3);
+
+    const attachment1 = makeAttachment({ title: "Attachment 1" })
+    const attachment2 = makeAttachment({ title: "Attachment 2" })
+    const attachment3 = makeAttachment({ title: "Attachment 3" })
+
+    inMemoryAttachmentsRepository.items.push(attachment1);
+    inMemoryAttachmentsRepository.items.push(attachment2);
+    inMemoryAttachmentsRepository.items.push(attachment3);
+
+    const taskAttachment1 = makeTaskAttachment({
+      attachmentId: attachment1.id,
+      taskId: task1.id
+    })
+    const taskAttachment2 = makeTaskAttachment({
+      attachmentId: attachment2.id,
+      taskId: task2.id
+    })
+    const taskAttachment3 = makeTaskAttachment({
+      attachmentId: attachment3.id,
+      taskId: task3.id
+    })
+
+    inMemoryTaskAttachmentsRepository.items.push(taskAttachment1)
+    inMemoryTaskAttachmentsRepository.items.push(taskAttachment2)
+    inMemoryTaskAttachmentsRepository.items.push(taskAttachment3)
 
     // Act
     const result = await fetchTasksUseCase.execute({ page: 1 });
+
+    console.log(result.value)
 
     //Verifica se a execução de sucesso
     expect(result.isSuccess()).toBe(true);
@@ -40,9 +71,30 @@ describe('FetchTasksUseCase', () => {
     expect(result.value.tasks).toHaveLength(3);
     //Verifica se a ordenação funcionou corretamente
     expect(result.value.tasks).toEqual([
-      expect.objectContaining({ createdAt: new Date(2024, 1, 23) }),
-      expect.objectContaining({ createdAt: new Date(2024, 1, 20) }),
-      expect.objectContaining({ createdAt: new Date(2024, 1, 18) }),
+      expect.objectContaining({
+        createdAt: new Date(2024, 1, 23),
+        attachments: [
+          expect.objectContaining({
+            title: attachment3.title
+          })
+        ]
+      }),
+      expect.objectContaining({
+        createdAt: new Date(2024, 1, 20),
+        attachments: [
+          expect.objectContaining({
+            title: attachment1.title
+          })
+        ]
+      }),
+      expect.objectContaining({
+        createdAt: new Date(2024, 1, 18),
+        attachments: [
+          expect.objectContaining({
+            title: attachment2.title
+          })
+        ]
+      }),
     ]);
   });
 

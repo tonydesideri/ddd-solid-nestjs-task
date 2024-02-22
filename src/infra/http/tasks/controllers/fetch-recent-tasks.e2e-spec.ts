@@ -3,46 +3,88 @@ import { Test } from '@nestjs/testing'
 import { AppModule } from 'src/infra/app.module'
 import { DatabaseModule } from 'src/infra/database/database.module'
 import request from 'supertest'
+import { AttachmentFactory } from 'test/factories/make-attachment.factory'
+import { TaskAttachmentFactory } from 'test/factories/make-task-attachment.factory'
 import { TaskFactory } from 'test/factories/make-task.factory'
 
 describe('Fetch recent tasks (E2E)', () => {
   let app: INestApplication
   let taskFactory: TaskFactory
+  let taskAttachmentFactory: TaskAttachmentFactory
+  let attachmentFactory: AttachmentFactory
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule, DatabaseModule],
-      providers: [TaskFactory]
+      providers: [TaskFactory, TaskAttachmentFactory, AttachmentFactory]
 
     }).compile()
 
     app = moduleRef.createNestApplication()
 
     taskFactory = moduleRef.get(TaskFactory)
+    taskAttachmentFactory = moduleRef.get(TaskAttachmentFactory)
+    attachmentFactory = moduleRef.get(AttachmentFactory)
 
     await app.init()
   })
 
   test('[GET] /tasks', async () => {
 
-    await Promise.all([
-      taskFactory.makePrismaTask({
-        title: 'Task 01',
-      }),
-      taskFactory.makePrismaTask({
-        title: 'Task 02',
-      }),
-    ])
+    const task1 = await taskFactory.makePrismaTask({
+      title: 'Task 01',
+      createdAt: new Date(2024, 1, 20)
+    })
+    const task2 = await taskFactory.makePrismaTask({
+      title: 'Task 02',
+      createdAt: new Date(2024, 1, 18)
+    })
+
+    const attachment1 = await attachmentFactory.makePrismaAttachment({
+      title: "Attachment 1"
+    })
+    const attachment2 = await attachmentFactory.makePrismaAttachment({
+      title: "Attachment 2"
+    })
+
+    await taskAttachmentFactory.makePrismaTaskAttachment({
+      attachmentId: attachment1.id,
+      taskId: task1.id
+    })
+
+    await taskAttachmentFactory.makePrismaTaskAttachment({
+      attachmentId: attachment2.id,
+      taskId: task2.id
+    })
 
     const response = await request(app.getHttpServer())
       .get('/tasks?page=1')
       .send()
+    console.log(response.body.tasks.map(item => {
+      return item.attachments
+    }))
 
     expect(response.statusCode).toBe(200)
+    // expect(response.body.tasks[0].attachments[0].title).toBe("Attachment 1")
+
     expect(response.body).toEqual({
       tasks: expect.arrayContaining([
-        expect.objectContaining({ title: 'Task 01' }),
-        expect.objectContaining({ title: 'Task 02' }),
+        expect.objectContaining({
+          title: task1.title,
+          attachments: [
+            expect.objectContaining({
+              title: 'Attachment 1',
+            }),
+          ],
+        }),
+        expect.objectContaining({
+          title: task2.title,
+          attachments: [
+            expect.objectContaining({
+              title: 'Attachment 2',
+            }),
+          ],
+        }),
       ]),
     })
   })

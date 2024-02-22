@@ -5,6 +5,8 @@ import { Task } from 'src/domain/enterprise/task.entity';
 import { PrismaService } from '../prisma.service';
 import { PrismaTaskMapper } from '../mappers/prisma-task-mapper';
 import { ITaskAttachmentsRepository } from 'src/domain/application/repositories/task-attachments-repository.contract';
+import { TaskWithAttachment } from 'src/domain/enterprise/value-objects/task-with-attachment';
+import { PrismaTaskWithMapper } from '../mappers/prisma-task-with-attachment-mapper';
 
 @Injectable()
 export class PrismaTasksRepositoryImpl implements ITasksRepository {
@@ -55,6 +57,21 @@ export class PrismaTasksRepositoryImpl implements ITasksRepository {
     });
 
     return tasks.map(PrismaTaskMapper.toDomain);
+  }
+
+  async findManyRencentTasksWithAttachments({ page }: PaginationParams): Promise<TaskWithAttachment[]> {
+    const tasks = await this.prisma.task.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+      include: {
+        attachments: true
+      },
+      take: this.PERPAGE,
+      skip: (page - 1) * this.PERPAGE,
+    });
+
+    return tasks.map(PrismaTaskWithMapper.toDomain);
   }
 
   async findById(id: string): Promise<Task | null> {

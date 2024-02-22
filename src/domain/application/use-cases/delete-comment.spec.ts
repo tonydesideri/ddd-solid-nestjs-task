@@ -1,44 +1,25 @@
-import { makeComment } from 'test/factories/make-comment.factory';
-import { DeleteCommentUseCase } from './delete-comment.use-case';
 import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
-import { ResourceNotFoundError } from './errors/resource-not-found-error';
-import { InMemoryCommentAttachmentsRepositoryImpl } from 'test/repositories/in-memory-comment-attachments-repository.impl ';
 import { makeCommentAttachment } from 'test/factories/make-comment-attachment.factory';
-import { InMemoryCommentsRepositoryImpl } from 'test/repositories/in-memory-comments-repository.impl ';
+import { makeComment } from 'test/factories/make-comment.factory';
+import { InMemoryRepositoriesProps, makeInMemoryRepositories } from 'test/factories/make-in-memory-repositories.factory';
 import { makeTask } from 'test/factories/make-task.factory';
-import { InMemoryTasksRepositoryImpl } from 'test/repositories/in-memory-tasks-repository.impl';
-import { InMemoryTaskAttachmentsRepositoryImpl } from 'test/repositories/in-memory-task-attachments-repository.impl ';
-import { InMemoryAttachmentsRepositoryImpl } from 'test/repositories/in-mamory-attachments-repository.impl';
+import { DeleteCommentUseCase } from './delete-comment.use-case';
+import { ResourceNotFoundError } from './errors/resource-not-found-error';
 
 describe('DeleteCommentUseCase', () => {
-  let inMemoryTaskAttachmentsRepository: InMemoryTaskAttachmentsRepositoryImpl
-  let inMemoryTasksRepository: InMemoryTasksRepositoryImpl;
-  let inMemoryCommentsRepository: InMemoryCommentsRepositoryImpl;
-  let inMemoryCommentAttachmentsRepository: InMemoryCommentAttachmentsRepositoryImpl;
-  let inMemoryAttachmentsRepositoryImpl: InMemoryAttachmentsRepositoryImpl
+  let inMemory: InMemoryRepositoriesProps;
   let deleteCommentUseCase: DeleteCommentUseCase;
 
   beforeEach(() => {
-    inMemoryTaskAttachmentsRepository = new InMemoryTaskAttachmentsRepositoryImpl()
-    inMemoryAttachmentsRepositoryImpl = new InMemoryAttachmentsRepositoryImpl()
-    inMemoryTasksRepository = new InMemoryTasksRepositoryImpl(
-      inMemoryTaskAttachmentsRepository,
-      inMemoryAttachmentsRepositoryImpl,
-      inMemoryCommentsRepository
-    );
-    inMemoryCommentAttachmentsRepository =
-      new InMemoryCommentAttachmentsRepositoryImpl();
-    inMemoryCommentsRepository = new InMemoryCommentsRepositoryImpl(
-      inMemoryCommentAttachmentsRepository,
-    );
+    inMemory = makeInMemoryRepositories()
 
-    deleteCommentUseCase = new DeleteCommentUseCase(inMemoryCommentsRepository);
+    deleteCommentUseCase = new DeleteCommentUseCase(inMemory.CommentsRepository);
   });
 
   it('should delete a comment', async () => {
     // Arrange
     const task = makeTask({}, new UniqueEntityID('task-1'));
-    await inMemoryTasksRepository.create(task);
+    await inMemory.TasksRepository.create(task);
 
     const newComment = makeComment(
       {
@@ -46,9 +27,9 @@ describe('DeleteCommentUseCase', () => {
       },
       new UniqueEntityID('comment-1'),
     );
-    await inMemoryCommentsRepository.create(newComment);
+    await inMemory.CommentsRepository.create(newComment);
 
-    inMemoryCommentAttachmentsRepository.items.push(
+    inMemory.CommentAttachmentsRepository.items.push(
       makeCommentAttachment({
         commentId: newComment.id,
         attachmentId: new UniqueEntityID('1'),
@@ -64,14 +45,14 @@ describe('DeleteCommentUseCase', () => {
 
     // Assert
     // Verifica se a tarefa foi removida corretamente do repositório
-    expect(inMemoryCommentsRepository.items).toHaveLength(0);
-    expect(inMemoryCommentAttachmentsRepository.items).toHaveLength(0);
+    expect(inMemory.CommentsRepository.items).toHaveLength(0);
+    expect(inMemory.CommentAttachmentsRepository.items).toHaveLength(0);
   });
 
   it('should throw an error if comment is not found', async () => {
     // Arrange
     const task = makeTask({}, new UniqueEntityID('task-1'));
-    await inMemoryTasksRepository.create(task);
+    await inMemory.TasksRepository.create(task);
 
     const newComment = makeComment(
       {
@@ -79,7 +60,7 @@ describe('DeleteCommentUseCase', () => {
       },
       new UniqueEntityID('comment-1'),
     );
-    await inMemoryCommentsRepository.create(newComment);
+    await inMemory.CommentsRepository.create(newComment);
 
     // Act
     const result = await deleteCommentUseCase.execute({ commentId: 'another-comment-1' });

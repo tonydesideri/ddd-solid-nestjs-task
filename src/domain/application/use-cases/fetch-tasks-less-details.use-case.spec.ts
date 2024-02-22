@@ -1,36 +1,19 @@
-import { makeTask } from 'test/factories/make-task.factory';
-import { InMemoryTasksRepositoryImpl } from 'test/repositories/in-memory-tasks-repository.impl';
-import { InMemoryTaskAttachmentsRepositoryImpl } from 'test/repositories/in-memory-task-attachments-repository.impl ';
-import { InMemoryAttachmentsRepositoryImpl } from 'test/repositories/in-mamory-attachments-repository.impl';
 import { makeAttachment } from 'test/factories/make-attachment.factory';
-import { makeTaskAttachment } from 'test/factories/make-task-attachment.factory';
-import { FetchTasksLessDetailsUseCase } from './fetch-tasks-less-details.use-case';
-import { InMemoryCommentsRepositoryImpl } from 'test/repositories/in-memory-comments-repository.impl ';
-import { InMemoryCommentAttachmentsRepositoryImpl } from 'test/repositories/in-memory-comment-attachments-repository.impl ';
 import { makeComment } from 'test/factories/make-comment.factory';
+import { InMemoryRepositoriesProps, makeInMemoryRepositories } from 'test/factories/make-in-memory-repositories.factory';
+import { makeTaskAttachment } from 'test/factories/make-task-attachment.factory';
+import { makeTask } from 'test/factories/make-task.factory';
+import { FetchTasksLessDetailsUseCase } from './fetch-tasks-less-details.use-case';
 
 describe('FetchTasksLessDetailsUseCase', () => {
-  let inMemoryTaskAttachmentsRepository: InMemoryTaskAttachmentsRepositoryImpl;
-  let inMemoryTasksRepository: InMemoryTasksRepositoryImpl;
-  let inMemoryAttachmentsRepository: InMemoryAttachmentsRepositoryImpl
-  let inMemoryCommentAttachmentsRepository: InMemoryCommentAttachmentsRepositoryImpl
-  let inMemoryCommentsRepository: InMemoryCommentsRepositoryImpl
+  let inMemory: InMemoryRepositoriesProps;
 
   let fetchTasksLessDetailsUseCase: FetchTasksLessDetailsUseCase;
 
   beforeEach(() => {
-    inMemoryAttachmentsRepository = new InMemoryAttachmentsRepositoryImpl()
-    inMemoryCommentAttachmentsRepository = new InMemoryCommentAttachmentsRepositoryImpl()
-    inMemoryCommentsRepository = new InMemoryCommentsRepositoryImpl(inMemoryCommentAttachmentsRepository)
-    inMemoryTaskAttachmentsRepository =
-      new InMemoryTaskAttachmentsRepositoryImpl();
-    inMemoryTasksRepository = new InMemoryTasksRepositoryImpl(
-      inMemoryTaskAttachmentsRepository,
-      inMemoryAttachmentsRepository,
-      inMemoryCommentsRepository
-    );
+    inMemory = makeInMemoryRepositories()
 
-    fetchTasksLessDetailsUseCase = new FetchTasksLessDetailsUseCase(inMemoryTasksRepository);
+    fetchTasksLessDetailsUseCase = new FetchTasksLessDetailsUseCase(inMemory.TasksRepository);
   });
 
   it('should be fetch all recent tasks', async () => {
@@ -40,15 +23,15 @@ describe('FetchTasksLessDetailsUseCase', () => {
       title: "Some title",
     })
 
-    inMemoryTasksRepository.items.push(task);
+    inMemory.TasksRepository.items.push(task);
 
     const attachment1 = makeAttachment({ title: "Attachment 1" })
     const attachment2 = makeAttachment({ title: "Attachment 2" })
     const attachment3 = makeAttachment({ title: "Attachment 3" })
 
-    inMemoryAttachmentsRepository.items.push(attachment1);
-    inMemoryAttachmentsRepository.items.push(attachment2);
-    inMemoryAttachmentsRepository.items.push(attachment3);
+    inMemory.AttachmentsRepository.items.push(attachment1);
+    inMemory.AttachmentsRepository.items.push(attachment2);
+    inMemory.AttachmentsRepository.items.push(attachment3);
 
     const taskAttachment1 = makeTaskAttachment({
       attachmentId: attachment1.id,
@@ -63,9 +46,9 @@ describe('FetchTasksLessDetailsUseCase', () => {
       taskId: task.id
     })
 
-    inMemoryTaskAttachmentsRepository.items.push(taskAttachment1)
-    inMemoryTaskAttachmentsRepository.items.push(taskAttachment2)
-    inMemoryTaskAttachmentsRepository.items.push(taskAttachment3)
+    inMemory.TaskAttachmentsRepository.items.push(taskAttachment1)
+    inMemory.TaskAttachmentsRepository.items.push(taskAttachment2)
+    inMemory.TaskAttachmentsRepository.items.push(taskAttachment3)
 
     const comment1 = makeComment({
       taskId: task.id
@@ -74,8 +57,8 @@ describe('FetchTasksLessDetailsUseCase', () => {
       taskId: task.id
     })
 
-    inMemoryCommentsRepository.items.push(comment1)
-    inMemoryCommentsRepository.items.push(comment2)
+    inMemory.CommentsRepository.items.push(comment1)
+    inMemory.CommentsRepository.items.push(comment2)
 
     // Act
     const result = await fetchTasksLessDetailsUseCase.execute();

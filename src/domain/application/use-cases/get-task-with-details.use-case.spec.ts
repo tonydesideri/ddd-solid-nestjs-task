@@ -4,20 +4,20 @@ import { makeComment } from 'test/factories/make-comment.factory';
 import { InMemoryRepositoriesProps, makeInMemoryRepositories } from 'test/factories/make-in-memory-repositories.factory';
 import { makeTaskAttachment } from 'test/factories/make-task-attachment.factory';
 import { makeTask } from 'test/factories/make-task.factory';
-import { FetchTasksWithDetailsUseCase } from './fetch-tasks-with-details.use-case';
+import { GetTaskWithDetailsUseCase } from './get-task-with-details.use-case';
 
-describe('FetchTasksWithDetailsUseCase', () => {
+describe('GetTaskWithDetailsUseCase', () => {
   let inMemory: InMemoryRepositoriesProps;
 
-  let fetchTasksWithDetailsUseCase: FetchTasksWithDetailsUseCase;
+  let getTaskWithDetailsUseCase: GetTaskWithDetailsUseCase;
 
   beforeEach(() => {
     inMemory = makeInMemoryRepositories()
 
-    fetchTasksWithDetailsUseCase = new FetchTasksWithDetailsUseCase(inMemory.TasksRepository);
+    getTaskWithDetailsUseCase = new GetTaskWithDetailsUseCase(inMemory.TasksRepository);
   });
 
-  it('should be fetch tasks with details', async () => {
+  it('should be get taska with details', async () => {
     // Preparação
     // Criar uma tarefa
     const task = makeTask({
@@ -78,13 +78,15 @@ describe('FetchTasksWithDetailsUseCase', () => {
     inMemory.CommentAttachmentsRepository.items.push(commentAttachment2)
 
     // Act
-    const result = await fetchTasksWithDetailsUseCase.execute();
+    const result = await getTaskWithDetailsUseCase.execute({
+      taskId: task.id.toString()
+    });
 
     //Verifica se a execução de sucesso
     expect(result.isSuccess()).toBe(true);
     // //Verifica se a ordenação funcionou corretamente
-    expect(result.value.tasks).toEqual([
-      expect.objectContaining({
+    expect(result.value).toEqual({
+      task: expect.objectContaining({
         status: "TODO",
         title: "Some title",
         attachments: [
@@ -114,10 +116,10 @@ describe('FetchTasksWithDetailsUseCase', () => {
           })
         ]
       }),
-    ]);
+    });
   });
 
-  it('should be fetch tasks with details without comments', async () => {
+  it('should be get task with details without comments', async () => {
     // Preparação
     // Criar uma tarefa
     const task = makeTask({
@@ -127,18 +129,20 @@ describe('FetchTasksWithDetailsUseCase', () => {
     inMemory.TasksRepository.items.push(task);
 
     // Act
-    const result = await fetchTasksWithDetailsUseCase.execute();
+    const result = await getTaskWithDetailsUseCase.execute({
+      taskId: task.id.toString()
+    });
 
     //Verifica se a execução de sucesso
     expect(result.isSuccess()).toBe(true);
     // //Verifica se a ordenação funcionou corretamente
-    expect(result.value.tasks).toEqual([
-      expect.objectContaining({
+    expect(result.value).toEqual({
+      task: expect.objectContaining({
         status: "TODO",
         title: "Some title",
         attachments: expect.arrayContaining([]),
         comments: expect.arrayContaining([])
       }),
-    ]);
+    });
   });
 });

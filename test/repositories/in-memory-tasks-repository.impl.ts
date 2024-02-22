@@ -1,3 +1,4 @@
+import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 import { PaginationParams } from 'src/core/repositories/pagination-params.contract';
 import { ITasksRepository } from 'src/domain/application/repositories/tasks-repository.contract';
 import { Task } from 'src/domain/enterprise/task.entity';
@@ -22,18 +23,35 @@ export class InMemoryTasksRepositoryImpl implements ITasksRepository {
     this.items = [];
   }
 
-  async findManyTasksWithDetails(): Promise<TaskWithDetails[]> {
-    const tasks = this.items
-      .sort((a: any, b: any) => b.createdAt.getTime() - a.createdAt.getTime())
+  async findByTaskIdWithDetails(taskId: string): Promise<TaskWithDetails> {
+    const task = this.items.find(task => task.id.equals(new UniqueEntityID(taskId)))
 
-    const tasksWithDetails = tasks.map(task => {
-      const taskAttachments = this.taskAttachmentsRepository.items.filter(taskAttachment => {
-        return taskAttachment.taskId.equals(task.id)
+    const taskAttachments = this.taskAttachmentsRepository.items.filter(taskAttachment => {
+      return taskAttachment.taskId.equals(task.id)
+    })
+
+    const attachments = taskAttachments.map(taskAttachment => {
+      const attachment = this.attachmentRepository.items.find(attachment => {
+        return attachment.id.equals(taskAttachment.attachmentId)
       })
 
-      const attachments = taskAttachments.map(taskAttachment => {
+      if (!attachment) {
+        throw new Error(`Attachment with id ${attachment.id.toString()} does note exist.`)
+      }
+
+      return attachment
+    })
+
+    const comments = this.commentRepository.items.filter(comment => comment.taskId.equals(task.id))
+
+    const commentsWithAttachments = comments.map(comment => {
+      const commentAttachments = this.commentAttachmentsRepository.items.filter(commentAttachment => {
+        return commentAttachment.commentId.equals(comment.id)
+      })
+
+      const attachments = commentAttachments.map(commentAttachment => {
         const attachment = this.attachmentRepository.items.find(attachment => {
-          return attachment.id.equals(taskAttachment.attachmentId)
+          return attachment.id.equals(commentAttachment.attachmentId)
         })
 
         if (!attachment) {
@@ -43,45 +61,23 @@ export class InMemoryTasksRepositoryImpl implements ITasksRepository {
         return attachment
       })
 
-      const comments = this.commentRepository.items.filter(comment => comment.taskId.equals(task.id))
-
-      const commentsWithAttachments = comments.map(comment => {
-        const commentAttachments = this.commentAttachmentsRepository.items.filter(commentAttachment => {
-          return commentAttachment.commentId.equals(comment.id)
-        })
-
-        const attachments = commentAttachments.map(commentAttachment => {
-          const attachment = this.attachmentRepository.items.find(attachment => {
-            return attachment.id.equals(commentAttachment.attachmentId)
-          })
-
-          if (!attachment) {
-            throw new Error(`Attachment with id ${attachment.id.toString()} does note exist.`)
-          }
-
-          return attachment
-        })
-
-        return {
-          content: comment.content,
-          attachments,
-          createdAt: comment.createdAt
-        }
-      })
-
-      return TaskWithDetails.instance({
-        taskId: task.id,
-        title: task.title,
-        description: task.description,
-        isFavotire: task.isFavorite,
-        status: task.status,
-        createdAt: task.createdAt,
+      return {
+        content: comment.content,
         attachments,
-        comments: commentsWithAttachments
-      })
+        createdAt: comment.createdAt
+      }
     })
 
-    return tasksWithDetails
+    return TaskWithDetails.instance({
+      taskId: task.id,
+      title: task.title,
+      description: task.description,
+      isFavotire: task.isFavorite,
+      status: task.status,
+      createdAt: task.createdAt,
+      attachments,
+      comments: commentsWithAttachments
+    })
   }
 
   async findManyTasksLessDetails(): Promise<TaskLessDetails[]> {

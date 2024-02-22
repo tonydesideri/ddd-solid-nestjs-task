@@ -8,5 +8,5 @@ import { TaskWithDetails } from 'src/domain/enterprise/value-objects/task-with-d
 export abstract class ITasksRepository extends IBaseRepository<Task> {
   abstract findManyRencentTasksWithAttachments(page: PaginationParams): Promise<TaskWithAttachment[]>
   abstract findManyTasksLessDetails(): Promise<TaskLessDetails[]>
-  abstract findManyTasksWithDetails(): Promise<TaskWithDetails[]>
+  abstract findByTaskIdWithDetails(taskId: string): Promise<TaskWithDetails>
 }

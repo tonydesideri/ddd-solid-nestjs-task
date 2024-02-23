@@ -1,13 +1,13 @@
-import { Task as PrismaTask, Attachment as PrismaAttachment } from '@prisma/client'
+import { Attachment as PrismaAttachment, Task as PrismaTask } from '@prisma/client';
+import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 import { TaskWithAttachment } from 'src/domain/enterprise/value-objects/task-with-attachment';
 import { PrismaAttachmentMapper } from './prisma-attachment-mapper';
-import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 
 type PrismaTaskWithAttachment = PrismaTask & {
   attachments: PrismaAttachment[]
 }
 
-export class PrismaTaskWithMapper {
+export class PrismaTaskWithAttachmentMapper {
   static toDomain(raw: PrismaTaskWithAttachment): TaskWithAttachment {
     return TaskWithAttachment.instance(
       {

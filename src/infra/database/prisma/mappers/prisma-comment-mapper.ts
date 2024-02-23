@@ -16,13 +16,13 @@ export class PrismaCommentMapper {
     );
   }
 
-  static toPrisma(task: Comment): Prisma.CommentUncheckedCreateInput {
+  static toPrisma(comment: Comment): Prisma.CommentUncheckedCreateInput {
     return {
-      id: task.id.toString(),
-      content: task.content,
-      taskId: task.id.toString(),
-      createdAt: task.createdAt,
-      updatedAt: task.updatedAt,
+      id: comment.id.toString(),
+      content: comment.content,
+      taskId: comment.taskId.toString(),
+      createdAt: comment.createdAt,
+      updatedAt: comment.updatedAt,
     };
   }
 }

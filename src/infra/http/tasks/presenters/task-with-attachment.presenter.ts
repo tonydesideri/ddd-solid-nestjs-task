@@ -1,4 +1,3 @@
-import { Task } from 'src/domain/enterprise/task.entity';
 import { TaskWithAttachment } from 'src/domain/enterprise/value-objects/task-with-attachment';
 import { AttachmentPresenter } from './attachment.presenter';
 

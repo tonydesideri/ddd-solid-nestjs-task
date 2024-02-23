@@ -2,17 +2,18 @@ import { UniqueEntityID } from "src/core/entities/unique-entity-id";
 import { ValueObject } from "src/core/entities/value-object";
 import { Attachment } from "../attachment.entity";
 
+export interface CommentWithDetailProps {
+  content: string
+  attachments: Attachment[]
+  createdAt: Date
+}
 export interface TaskWithDetailsProps {
   taskId: UniqueEntityID
   title: string
   description: string
   isFavotire: boolean
   status: 'DONE' | 'TODO' | 'DOING';
-  comments: {
-    content: string
-    attachments: Attachment[]
-    createdAt: Date
-  }[]
+  comments: CommentWithDetailProps[]
   attachments: Attachment[]
   createdAt: Date
 }

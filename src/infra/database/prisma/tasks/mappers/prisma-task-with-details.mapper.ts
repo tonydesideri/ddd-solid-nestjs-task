@@ -5,7 +5,7 @@ import {
 } from '@prisma/client';
 import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 import { TaskWithDetails } from 'src/domain/tasks/enterprise/value-objects/task-with-details';
-import { PrismaAttachmentMapper } from './prisma-attachment-mapper';
+import { PrismaAttachmentMapper } from './prisma-attachment.mapper';
 
 
 type PrismaTaskWithDetails = PrismaTask & {

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ITaskAttachmentsRepository } from 'src/domain/tasks/application/repositories/task-attachments-repository.contract';
 import { TaskAttachment } from 'src/domain/tasks/enterprise/task-attachment.entity';
 import { PrismaService } from '../../prisma.service';
-import { PrismaTaskAttachmentMapper } from '../mappers/prisma-task-attachment-mapper';
+import { PrismaTaskAttachmentMapper } from '../mappers/prisma-task-attachment.mapper';
 
 @Injectable()
 export class PrismaTaskAttachmentsRepositoryImpl

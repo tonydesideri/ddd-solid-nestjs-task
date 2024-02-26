@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 import { Task, TaskProps } from 'src/domain/tasks/enterprise/task.entity';
 import { PrismaService } from 'src/infra/database/prisma/prisma.service';
-import { PrismaTaskMapper } from 'src/infra/database/prisma/tasks/mappers/prisma-task-mapper';
+import { PrismaTaskMapper } from 'src/infra/database/prisma/tasks/mappers/prisma-task.mapper';
 
 export function makeTask(
   override: Partial<TaskProps> = {},

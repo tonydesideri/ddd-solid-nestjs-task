@@ -1,10 +1,10 @@
-import { Test } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
-import request from 'supertest';
-import { PrismaService } from 'src/infra/database/prisma/prisma.service';
+import { Test } from '@nestjs/testing';
 import { AppModule } from 'src/infra/app.module';
-import { AttachmentFactory } from 'test/factories/make-attachment.factory';
 import { DatabaseModule } from 'src/infra/database/database.module';
+import { PrismaService } from 'src/infra/database/prisma/prisma.service';
+import request from 'supertest';
+import { AttachmentFactory } from 'test/factories/make-attachment.factory';
 
 describe('Create Task (e2e)', () => {
   let app: INestApplication;
@@ -30,7 +30,7 @@ describe('Create Task (e2e)', () => {
     const attachment2 = await attachmentFactory.makePrismaAttachment()
 
     const response = await request(app.getHttpServer()).post('/tasks').send({
-      title: 'Title',
+      title2: 'Title',
       description: 'Description',
       attachmentsIds: [
         attachment1.id.toString(),

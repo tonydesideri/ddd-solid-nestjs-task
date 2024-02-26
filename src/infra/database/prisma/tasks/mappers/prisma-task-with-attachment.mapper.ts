@@ -1,7 +1,7 @@
 import { Attachment as PrismaAttachment, Task as PrismaTask } from '@prisma/client';
 import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 import { TaskWithAttachment } from 'src/domain/tasks/enterprise/value-objects/task-with-attachment';
-import { PrismaAttachmentMapper } from './prisma-attachment-mapper';
+import { PrismaAttachmentMapper } from './prisma-attachment.mapper';
 
 type PrismaTaskWithAttachment = PrismaTask & {
   attachments: PrismaAttachment[]

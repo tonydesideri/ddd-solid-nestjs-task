@@ -1,6 +1,6 @@
-import { BadRequestException, Body, Controller, Delete, HttpCode, NotFoundException, Param } from '@nestjs/common';
-import { ResourceNotFoundError } from 'src/domain/application/use-cases/errors/resource-not-found-error';
-import { DeleteTaskUseCase } from 'src/domain/application/use-cases/delete-task.use-case';
+import { BadRequestException, Controller, Delete, HttpCode, NotFoundException, Param } from '@nestjs/common';
+import { DeleteTaskUseCase } from 'src/domain/tasks/application/use-cases/delete-task.use-case';
+import { ResourceNotFoundError } from 'src/domain/tasks/application/use-cases/errors/resource-not-found-error';
 
 
 @Controller('/tasks/:id')

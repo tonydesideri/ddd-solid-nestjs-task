@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto'
-import { UploadParams, Uploader } from 'src/domain/application/storage/uploader.contract'
+import { UploadParams, Uploader } from 'src/domain/tasks/application/storage/uploader.contract'
 
 interface Upload {
   fileName: string

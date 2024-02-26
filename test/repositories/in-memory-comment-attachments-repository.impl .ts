@@ -1,9 +1,8 @@
-import { ICommentAttachmentsRepository } from 'src/domain/application/repositories/comment-attachments-repository.contract';
-import { CommentAttachment } from 'src/domain/enterprise/comment-attachment.entity';
+import { ICommentAttachmentsRepository } from 'src/domain/tasks/application/repositories/comment-attachments-repository.contract';
+import { CommentAttachment } from 'src/domain/tasks/enterprise/comment-attachment.entity';
 
 export class InMemoryCommentAttachmentsRepositoryImpl
-  implements ICommentAttachmentsRepository
-{
+  implements ICommentAttachmentsRepository {
   public items: CommentAttachment[] = [];
 
   async findManyByCommentId(commentId: string): Promise<CommentAttachment[]> {

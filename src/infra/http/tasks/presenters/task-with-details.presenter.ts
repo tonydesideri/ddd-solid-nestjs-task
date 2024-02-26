@@ -1,4 +1,4 @@
-import { CommentWithDetailProps, TaskWithDetails } from 'src/domain/enterprise/value-objects/task-with-details';
+import { CommentWithDetailProps, TaskWithDetails } from 'src/domain/tasks/enterprise/value-objects/task-with-details';
 import { AttachmentPresenter } from './attachment.presenter';
 
 export class TaskWithDetailsPresenter {

@@ -1,9 +1,9 @@
 import { faker } from '@faker-js/faker';
 import { Injectable } from '@nestjs/common';
 import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
-import { Comment, CommentProps } from 'src/domain/enterprise/comment.entity';
-import { PrismaCommentMapper } from 'src/infra/database/prisma/mappers/prisma-comment-mapper';
+import { Comment, CommentProps } from 'src/domain/tasks/enterprise/comment.entity';
 import { PrismaService } from 'src/infra/database/prisma/prisma.service';
+import { PrismaCommentMapper } from 'src/infra/database/prisma/tasks/mappers/prisma-comment-mapper';
 
 export function makeComment(
   override: Partial<CommentProps> = {},

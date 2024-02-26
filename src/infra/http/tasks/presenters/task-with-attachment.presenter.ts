@@ -1,4 +1,4 @@
-import { TaskWithAttachment } from 'src/domain/enterprise/value-objects/task-with-attachment';
+import { TaskWithAttachment } from 'src/domain/tasks/enterprise/value-objects/task-with-attachment';
 import { AttachmentPresenter } from './attachment.presenter';
 
 export class TaskWithAttachmentPresenter {

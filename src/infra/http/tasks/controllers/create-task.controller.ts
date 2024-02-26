@@ -1,6 +1,6 @@
 import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
+import { CreateTaskUseCase } from 'src/domain/tasks/application/use-cases/create-task.use-case';
 import { CreateTaskDto } from '../dtos/create-task.dto';
-import { CreateTaskUseCase } from 'src/domain/application/use-cases/create-task.use-case';
 
 @Controller('tasks')
 export class CreateTaskController {

@@ -1,7 +1,7 @@
 import { BadRequestException, Body, Controller, HttpCode, NotFoundException, Param, Put } from '@nestjs/common';
-import { EditTaskUseCase } from 'src/domain/application/use-cases/edit-task.use-case';
+import { EditTaskUseCase } from 'src/domain/tasks/application/use-cases/edit-task.use-case';
+import { ResourceNotFoundError } from 'src/domain/tasks/application/use-cases/errors/resource-not-found-error';
 import { EditTaskDto } from '../dtos/edit-task.dto';
-import { ResourceNotFoundError } from 'src/domain/application/use-cases/errors/resource-not-found-error';
 
 
 @Controller('/tasks/:id')

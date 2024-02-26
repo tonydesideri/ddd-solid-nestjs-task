@@ -1,4 +1,4 @@
-import { Attachment } from "src/domain/enterprise/attachment.entity";
+import { Attachment } from "src/domain/tasks/enterprise/attachment.entity";
 
 export class AttachmentPresenter {
   static toHTTP(attachment: Attachment) {

@@ -1,5 +1,5 @@
 import { BadRequestException, Controller, Get, Query } from '@nestjs/common';
-import { FetchTasksUseCase } from 'src/domain/application/use-cases/fetch-tasks.use-case';
+import { FetchTasksUseCase } from 'src/domain/tasks/application/use-cases/fetch-tasks.use-case';
 import { TaskWithAttachmentPresenter } from '../presenters/task-with-attachment.presenter';
 
 @Controller('tasks')

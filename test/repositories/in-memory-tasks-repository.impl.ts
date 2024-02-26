@@ -1,10 +1,10 @@
 import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 import { PaginationParams } from 'src/core/repositories/pagination-params.contract';
-import { ITasksRepository } from 'src/domain/application/repositories/tasks-repository.contract';
-import { Task } from 'src/domain/enterprise/task.entity';
-import { TaskLessDetails } from 'src/domain/enterprise/value-objects/task-less-details';
-import { TaskWithAttachment } from 'src/domain/enterprise/value-objects/task-with-attachment';
-import { TaskWithDetails } from 'src/domain/enterprise/value-objects/task-with-details';
+import { ITasksRepository } from 'src/domain/tasks/application/repositories/tasks-repository.contract';
+import { Task } from 'src/domain/tasks/enterprise/task.entity';
+import { TaskLessDetails } from 'src/domain/tasks/enterprise/value-objects/task-less-details';
+import { TaskWithAttachment } from 'src/domain/tasks/enterprise/value-objects/task-with-attachment';
+import { TaskWithDetails } from 'src/domain/tasks/enterprise/value-objects/task-with-details';
 import { InMemoryAttachmentsRepositoryImpl } from './in-mamory-attachments-repository.impl';
 import { InMemoryCommentAttachmentsRepositoryImpl } from './in-memory-comment-attachments-repository.impl ';
 import { InMemoryCommentsRepositoryImpl } from './in-memory-comments-repository.impl ';

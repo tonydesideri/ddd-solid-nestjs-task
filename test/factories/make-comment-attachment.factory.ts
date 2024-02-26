@@ -3,7 +3,7 @@ import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 import {
   CommentAttachment,
   CommentAttachmentProps,
-} from 'src/domain/enterprise/comment-attachment.entity';
+} from 'src/domain/tasks/enterprise/comment-attachment.entity';
 import { PrismaService } from 'src/infra/database/prisma/prisma.service';
 
 export function makeCommentAttachment(

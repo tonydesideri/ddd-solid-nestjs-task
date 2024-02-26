@@ -1,6 +1,6 @@
 import { BadRequestException, Controller, HttpCode, NotFoundException, Param, Patch } from '@nestjs/common';
-import { ResourceNotFoundError } from 'src/domain/application/use-cases/errors/resource-not-found-error';
-import { ChangeFavoriteTaskUseCase } from 'src/domain/application/use-cases/change-favorite-task.use-case';
+import { ChangeFavoriteTaskUseCase } from 'src/domain/tasks/application/use-cases/change-favorite-task.use-case';
+import { ResourceNotFoundError } from 'src/domain/tasks/application/use-cases/errors/resource-not-found-error';
 
 
 @Controller('/tasks/:id')

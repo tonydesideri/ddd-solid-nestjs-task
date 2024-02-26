@@ -1,6 +1,6 @@
 import { BadRequestException, Controller, Get, NotFoundException, Param } from '@nestjs/common';
-import { ResourceNotFoundError } from 'src/domain/application/use-cases/errors/resource-not-found-error';
-import { GetTaskWithDetailsUseCase } from 'src/domain/application/use-cases/get-task-with-details.use-case';
+import { ResourceNotFoundError } from 'src/domain/tasks/application/use-cases/errors/resource-not-found-error';
+import { GetTaskWithDetailsUseCase } from 'src/domain/tasks/application/use-cases/get-task-with-details.use-case';
 import { TaskWithDetailsPresenter } from '../presenters/task-with-details.presenter';
 
 @Controller('task-detail')

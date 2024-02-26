@@ -1,5 +1,5 @@
-import { ITaskAttachmentsRepository } from 'src/domain/application/repositories/task-attachments-repository.contract';
-import { TaskAttachment } from 'src/domain/enterprise/task-attachment.entity';
+import { ITaskAttachmentsRepository } from 'src/domain/tasks/application/repositories/task-attachments-repository.contract';
+import { TaskAttachment } from 'src/domain/tasks/enterprise/task-attachment.entity';
 
 export class InMemoryTaskAttachmentsRepositoryImpl
   implements ITaskAttachmentsRepository {

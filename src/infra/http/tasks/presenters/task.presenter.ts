@@ -1,4 +1,4 @@
-import { Task } from 'src/domain/enterprise/task.entity';
+import { Task } from 'src/domain/tasks/enterprise/task.entity';
 
 export class TaskPresenter {
   static toHTTP(task: Task) {

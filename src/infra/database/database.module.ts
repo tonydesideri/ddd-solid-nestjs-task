@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
+import { ITaskAttachmentsRepository } from 'src/domain/tasks/application/repositories/task-attachments-repository.contract';
 import { PrismaService } from './prisma/prisma.service';
-import { PrismaTasksRepositoryImpl } from './prisma/repositories/prisma-tasks-repository.impl';
-import { PrismaTaskAttachmentsRepositoryImpl } from './prisma/repositories/prisma-task-attachments-repository.impl';
-import { PrismaCommentsRepositoryImpl } from './prisma/repositories/prisma-comments-repository.impl';
-import { PrismaCommentAttachmentsRepositoryImpl } from './prisma/repositories/prisma-comment-attachments-repository.impl';
-import { PrismaAttachmentsRepositoryImpl } from './prisma/repositories/prisma-attachment-repository.impl';
-import { ITaskAttachmentsRepository } from 'src/domain/application/repositories/task-attachments-repository.contract';
+import { PrismaAttachmentsRepositoryImpl } from './prisma/tasks/repositories/prisma-attachment-repository.impl';
+import { PrismaCommentAttachmentsRepositoryImpl } from './prisma/tasks/repositories/prisma-comment-attachments-repository.impl';
+import { PrismaCommentsRepositoryImpl } from './prisma/tasks/repositories/prisma-comments-repository.impl';
+import { PrismaTaskAttachmentsRepositoryImpl } from './prisma/tasks/repositories/prisma-task-attachments-repository.impl';
+import { PrismaTasksRepositoryImpl } from './prisma/tasks/repositories/prisma-tasks-repository.impl';
 
 @Module({
   providers: [

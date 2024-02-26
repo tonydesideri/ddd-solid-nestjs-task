@@ -1,0 +1,8 @@
+import { TaskAttachment } from 'src/domain/tasks/enterprise/task-attachment.entity';
+
+export abstract class ITaskAttachmentsRepository {
+  abstract createMany(attachments: TaskAttachment[]): Promise<void>
+  abstract deleteMany(attachments: TaskAttachment[]): Promise<void>
+  abstract findManyByTaskId(taskId: string): Promise<TaskAttachment[]>;
+  abstract deleteManyByTaskId(taskId: string): Promise<void>;
+}

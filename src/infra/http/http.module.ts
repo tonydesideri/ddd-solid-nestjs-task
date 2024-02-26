@@ -18,7 +18,7 @@ import { CreateTaskController } from './tasks/controllers/create-task.controller
 import { DeleteTaskController } from './tasks/controllers/delete-task.controller';
 import { EditTaskController } from './tasks/controllers/edit-task.controller';
 import { FetchRecentTasksController } from './tasks/controllers/fetch-recent-tasks.controller';
-import { GetTaskWithDetailsController } from './tasks/controllers/get-task-with-details..controller';
+import { GetTaskWithDetailsController } from './tasks/controllers/get-task-with-details.controller';
 
 @Module({
   imports: [DatabaseModule, StorageModule],

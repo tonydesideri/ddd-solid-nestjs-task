@@ -1,4 +1,5 @@
-import { Module } from '@nestjs/common';
+import { Module, ValidationPipe } from '@nestjs/common';
+import { APP_PIPE } from '@nestjs/core';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import * as path from 'path';
 import { EnvModule } from './env/env.module';
@@ -14,6 +15,11 @@ import { HttpModule } from './http/http.module';
     HttpModule
   ],
   controllers: [],
-  providers: [EnvService],
+  providers: [
+    {
+      provide: APP_PIPE,
+      useClass: ValidationPipe,
+    },
+    EnvService],
 })
 export class AppModule { }

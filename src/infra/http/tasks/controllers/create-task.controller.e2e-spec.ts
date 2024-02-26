@@ -30,7 +30,7 @@ describe('Create Task (e2e)', () => {
     const attachment2 = await attachmentFactory.makePrismaAttachment()
 
     const response = await request(app.getHttpServer()).post('/tasks').send({
-      title2: 'Title',
+      title: 'Title',
       description: 'Description',
       attachmentsIds: [
         attachment1.id.toString(),

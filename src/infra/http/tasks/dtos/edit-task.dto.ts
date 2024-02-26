@@ -9,7 +9,7 @@ export class EditTaskDto {
   @IsString()
   readonly description: string;
 
-  @IsArray({ each: true })
+  @IsArray()
   @IsOptional()
   readonly attachmentsIds: Array<string>
 }

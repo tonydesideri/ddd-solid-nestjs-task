@@ -57,4 +57,14 @@ describe('Create Comment (e2e)', () => {
 
     expect(attachmentOnDatabase).toHaveLength(2);
   });
+
+  test('[POST] /comments with task not exist', async () => {
+    const response = await request(app.getHttpServer()).post('/comments').send({
+      taskId: "task-qualquer",
+      content: 'Conteudo do comentario',
+      attachmentsIds: []
+    });
+
+    expect(response.statusCode).toBe(404);
+  });
 });

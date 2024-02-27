@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ICommentAttachmentsRepository } from 'src/domain/tasks/application/repositories/comment-attachments-repository.contract';
 import { ITaskAttachmentsRepository } from 'src/domain/tasks/application/repositories/task-attachments-repository.contract';
 import { PrismaService } from './prisma/prisma.service';
 import { PrismaAttachmentsRepositoryImpl } from './prisma/tasks/repositories/prisma-attachment-repository.impl';
@@ -18,6 +19,10 @@ import { PrismaTasksRepositoryImpl } from './prisma/tasks/repositories/prisma-ta
     {
       provide: ITaskAttachmentsRepository,
       useClass: PrismaTaskAttachmentsRepositoryImpl
+    },
+    {
+      provide: ICommentAttachmentsRepository,
+      useClass: PrismaCommentAttachmentsRepositoryImpl
     }
   ],
   exports: [

@@ -54,8 +54,6 @@ describe('Create Comment (e2e)', () => {
       }
     });
 
-    console.log(commentOnDatabase)
-
     expect(commentOnDatabase).toHaveLength(1);
 
     const attachmentOnDatabase = await prisma.attachment.findMany({

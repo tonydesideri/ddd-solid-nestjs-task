@@ -49,11 +49,20 @@ describe('Create Comment (e2e)', () => {
       where: {
         taskId: task1.id.toString(),
       },
+      include: {
+        attachments: true
+      }
     });
+
+    console.log(commentOnDatabase)
 
     expect(commentOnDatabase).toHaveLength(1);
 
-    const attachmentOnDatabase = await prisma.attachment.findMany();
+    const attachmentOnDatabase = await prisma.attachment.findMany({
+      where: {
+        commentId: commentOnDatabase[0].id
+      }
+    });
 
     expect(attachmentOnDatabase).toHaveLength(2);
   });

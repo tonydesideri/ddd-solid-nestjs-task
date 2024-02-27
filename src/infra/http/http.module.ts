@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ChangeFavoriteTaskUseCase } from 'src/domain/tasks/application/use-cases/change-favorite-task.use-case';
 import { CreateCommentUseCase } from 'src/domain/tasks/application/use-cases/create-comment.use-case';
 import { CreateTaskUseCase } from 'src/domain/tasks/application/use-cases/create-task.use-case';
+import { DeleteCommentUseCase } from 'src/domain/tasks/application/use-cases/delete-comment.use-case';
 import { DeleteTaskUseCase } from 'src/domain/tasks/application/use-cases/delete-task.use-case';
 import { EditTaskUseCase } from 'src/domain/tasks/application/use-cases/edit-task.use-case';
 import { FetchTasksUseCase } from 'src/domain/tasks/application/use-cases/fetch-tasks.use-case';
@@ -18,6 +19,7 @@ import { UploadAttachmentController } from './attachments/controllers/upload-att
 import { ChangeFavoriteTaskController } from './tasks/controllers/change-favorite-task.controller';
 import { CreateCommentController } from './tasks/controllers/create-comment.controller';
 import { CreateTaskController } from './tasks/controllers/create-task.controller';
+import { DeleteCommentController } from './tasks/controllers/delete-comment.controller';
 import { DeleteTaskController } from './tasks/controllers/delete-task.controller';
 import { EditTaskController } from './tasks/controllers/edit-task.controller';
 import { FetchRecentTasksController } from './tasks/controllers/fetch-recent-tasks.controller';
@@ -33,7 +35,8 @@ import { GetTaskWithDetailsController } from './tasks/controllers/get-task-with-
     ChangeFavoriteTaskController,
     UploadAttachmentController,
     GetTaskWithDetailsController,
-    CreateCommentController
+    CreateCommentController,
+    DeleteCommentController
   ],
   providers: [
     {
@@ -86,6 +89,12 @@ import { GetTaskWithDetailsController } from './tasks/controllers/get-task-with-
       useFactory: (tasksRepository: PrismaTasksRepositoryImpl, commentsRepository: PrismaCommentsRepositoryImpl) =>
         new CreateCommentUseCase(tasksRepository, commentsRepository),
       inject: [PrismaTasksRepositoryImpl, PrismaCommentsRepositoryImpl],
+    },
+    {
+      provide: DeleteCommentUseCase,
+      useFactory: (repository: PrismaCommentsRepositoryImpl) =>
+        new DeleteCommentUseCase(repository),
+      inject: [PrismaCommentsRepositoryImpl],
     },
   ],
 })

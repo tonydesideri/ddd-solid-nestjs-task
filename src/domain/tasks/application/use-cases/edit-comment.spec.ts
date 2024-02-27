@@ -90,4 +90,44 @@ describe('Edit Comment', () => {
     expect(result.isFailure()).toBe(true);
     expect(result.value).toBeInstanceOf(ResourceNotFoundError);
   });
+
+  it('should be able to edit a comment and sync new and remove attachment', async () => {
+    const newTask = makeTask({}, new UniqueEntityID('Task-1'));
+    await inMemory.TasksRepository.create(newTask);
+
+    const comment = makeComment({
+      taskId: newTask.id
+    })
+    inMemory.CommentsRepository.create(comment)
+
+    inMemory.CommentAttachmentsRepository.items.push(
+      makeCommentAttachment({
+        commentId: comment.id,
+        attachmentId: new UniqueEntityID('1'),
+      }),
+      makeCommentAttachment({
+        commentId: comment.id,
+        attachmentId: new UniqueEntityID('2'),
+      }),
+    );
+
+    const result = await sut.execute({
+      commentId: comment.id.toValue(),
+      content: 'Content',
+      attachmentsIds: ['1', '3'],
+    });
+
+    expect(result.isSuccess()).toBe(true)
+    expect(inMemory.CommentAttachmentsRepository.items).toHaveLength(2)
+    expect(inMemory.CommentAttachmentsRepository.items).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          attachmentId: new UniqueEntityID("1")
+        }),
+        expect.objectContaining({
+          attachmentId: new UniqueEntityID("3")
+        })
+      ])
+    )
+  });
 });

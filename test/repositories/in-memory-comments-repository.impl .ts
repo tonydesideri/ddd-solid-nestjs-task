@@ -11,6 +11,8 @@ export class InMemoryCommentsRepositoryImpl implements ICommentsRepository {
 
   async create(data: Comment): Promise<void> {
     this.items.push(data);
+
+    await this.commentAttachmentsRepository.createMany(data.attachments.getItems())
   }
 
   async findById(commentId: string): Promise<Comment> {
@@ -21,6 +23,10 @@ export class InMemoryCommentsRepositoryImpl implements ICommentsRepository {
     const index = this.items.findIndex((item) => item.id === data.id);
     if (index !== -1) {
       this.items[index] = data;
+
+      await this.commentAttachmentsRepository.createMany(data.attachments.getNewItems())
+
+      await this.commentAttachmentsRepository.deleteMany(data.attachments.getRemovedItems())
     }
   }
 

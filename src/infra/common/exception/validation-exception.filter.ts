@@ -11,7 +11,6 @@ export class ValidationExceptionFilter implements ExceptionFilter<ValidationExce
   catch(exception: ValidationException, host: ArgumentsHost): any {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
-    console.log("Erro de validação")
 
     const status = exception.getStatus
       ? exception.getStatus()

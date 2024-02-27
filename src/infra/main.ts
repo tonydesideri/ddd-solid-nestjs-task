@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
 import { EnvService } from './common/env/env.service';
+import { PrismaExceptionFilter } from './common/exception/prisma-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
@@ -12,6 +13,9 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true,
   }));
+  app.useGlobalFilters(
+    new PrismaExceptionFilter(),
+  );
 
   const configService = app.get(EnvService);
   const port = configService.get('PORT');

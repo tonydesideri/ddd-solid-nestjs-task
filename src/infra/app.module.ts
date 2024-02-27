@@ -2,8 +2,8 @@ import { Module, ValidationPipe } from '@nestjs/common';
 import { APP_PIPE } from '@nestjs/core';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import * as path from 'path';
-import { EnvModule } from './env/env.module';
-import { EnvService } from './env/env.service';
+import { EnvModule } from './common/env/env.module';
+import { EnvService } from './common/env/env.service';
 import { HttpModule } from './http/http.module';
 
 @Module({

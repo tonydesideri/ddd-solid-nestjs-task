@@ -1,9 +1,9 @@
-import { Test } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
-import request from 'supertest';
-import { PrismaService } from 'src/infra/database/prisma/prisma.service';
+import { Test } from '@nestjs/testing';
 import { AppModule } from 'src/infra/app.module';
 import { DatabaseModule } from 'src/infra/database/database.module';
+import { PrismaService } from 'src/infra/database/prisma/prisma.service';
+import request from 'supertest';
 import { TaskFactory } from 'test/factories/make-task.factory';
 
 describe('Change Favorite Task (e2e)', () => {

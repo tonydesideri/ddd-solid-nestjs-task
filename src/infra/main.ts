@@ -5,18 +5,31 @@ import { AppModule } from './app.module';
 import { EnvService } from './common/env/env.service';
 import { HttpExceptionFilter } from './common/exception/http-exception.filter';
 import { PrismaExceptionFilter } from './common/exception/prisma-exception.filter';
+import { ValidationExceptionFilter } from './common/exception/validation-exception.filter';
+import { ValidationException } from './common/exception/validation.exeption';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     cors: true
   });
 
-  app.useGlobalPipes(new ValidationPipe({
-    whitelist: true,
-  }));
   app.useGlobalFilters(
     new HttpExceptionFilter(),
   );
+
+  app.useGlobalFilters(new ValidationExceptionFilter());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      skipMissingProperties: false,
+      exceptionFactory: (errors: any) => {
+        const exceptions = errors.map((error) => {
+          return Object.values(error.constraints).join('');
+        });
+        return new ValidationException(exceptions);
+      },
+    })
+  );
+
   app.useGlobalFilters(
     new PrismaExceptionFilter(),
   );

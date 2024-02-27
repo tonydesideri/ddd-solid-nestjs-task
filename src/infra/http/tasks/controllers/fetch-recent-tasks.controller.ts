@@ -1,4 +1,4 @@
-import { BadRequestException, Controller, Get, Query } from '@nestjs/common';
+import { BadRequestException, Controller, Get, ParseIntPipe, Query } from '@nestjs/common';
 import { FetchTasksUseCase } from 'src/domain/tasks/application/use-cases/fetch-tasks.use-case';
 import { TaskWithAttachmentPresenter } from '../presenters/task-with-attachment.presenter';
 
@@ -7,8 +7,8 @@ export class FetchRecentTasksController {
   constructor(private fetchRecentTasksUseCase: FetchTasksUseCase) { }
 
   @Get()
-  async handle(@Query('page') page: number) {
-    const result = await this.fetchRecentTasksUseCase.execute({ page: Number(page) });
+  async handle(@Query('page', ParseIntPipe) page: number) {
+    const result = await this.fetchRecentTasksUseCase.execute({ page });
 
     if (result.isFailure()) {
       throw new BadRequestException();

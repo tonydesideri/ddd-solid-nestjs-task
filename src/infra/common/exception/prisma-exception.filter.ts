@@ -1,4 +1,4 @@
-import { ArgumentsHost, Catch, HttpStatus } from '@nestjs/common';
+import { ArgumentsHost, BadRequestException, Catch, ConflictException, HttpStatus, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { BaseExceptionFilter } from '@nestjs/core';
 import { Prisma } from '@prisma/client';
 import { Response } from 'express';
@@ -9,18 +9,20 @@ export class PrismaExceptionFilter extends BaseExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
 
-    const errorMessage = this.getErrorMessage(exception);
+    const message = this.getMessage(exception);
     const status = this.getHttpStatus(exception);
     const fieldName = this.getFieldName(exception);
+    const error = this.getError(exception)
 
     response.status(status).json({
       statusCode: status,
-      message: [errorMessage],
+      message: [message],
+      error: error,
       fields: fieldName, // Incluindo o campo específico, se disponível
     });
   }
 
-  private getErrorMessage(exception: Prisma.PrismaClientKnownRequestError): string {
+  private getMessage(exception: Prisma.PrismaClientKnownRequestError): string {
     switch (exception.code) {
       case 'P2000':
         return 'O valor fornecido para o campo é muito longo.';
@@ -43,6 +45,19 @@ export class PrismaExceptionFilter extends BaseExceptionFilter {
         return HttpStatus.NOT_FOUND;
       default:
         return HttpStatus.INTERNAL_SERVER_ERROR;
+    }
+  }
+
+  private getError(exception: Prisma.PrismaClientKnownRequestError): string {
+    switch (exception.code) {
+      case 'P2000':
+        return new BadRequestException().message;
+      case 'P2002':
+        return new ConflictException().message;
+      case 'P2025':
+        return new NotFoundException().message;
+      default:
+        return new InternalServerErrorException().message;
     }
   }
 

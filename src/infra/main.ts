@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
 import { EnvService } from './common/env/env.service';
+import { HttpExceptionFilter } from './common/exception/http-exception.filter';
 import { PrismaExceptionFilter } from './common/exception/prisma-exception.filter';
 
 async function bootstrap() {
@@ -13,6 +14,9 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true,
   }));
+  app.useGlobalFilters(
+    new HttpExceptionFilter(),
+  );
   app.useGlobalFilters(
     new PrismaExceptionFilter(),
   );

@@ -15,7 +15,7 @@ export class PrismaExceptionFilter extends BaseExceptionFilter {
 
     response.status(status).json({
       statusCode: status,
-      message: errorMessage,
+      message: [errorMessage],
       fields: fieldName, // Incluindo o campo específico, se disponível
     });
   }

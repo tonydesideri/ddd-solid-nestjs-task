@@ -3,22 +3,34 @@ import {
   Catch,
   ExceptionFilter,
   HttpException,
-  HttpStatus
+  HttpStatus,
+  Logger
 } from '@nestjs/common';
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
+  private readonly logger = new Logger();
   catch(exception: HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
+    const request = ctx.getRequest();
+
+    const { ip } = request;
+    const userAgent = request.get('user-agent') || '';
 
     const status = exception.getStatus
       ? exception.getStatus()
       : HttpStatus.INTERNAL_SERVER_ERROR;
-    console.log(exception)
-    const error = status === HttpStatus.INTERNAL_SERVER_ERROR
-      ? (exception.getResponse() as { error: string, message: string }).message
-      : (exception.getResponse() as { error: string }).error
+
+    let error = ""
+    if (exception instanceof HttpException) {
+      error = status === HttpStatus.INTERNAL_SERVER_ERROR
+        ? (exception.getResponse() as { error: string, message: string }).message
+        : (exception.getResponse() as { error: string }).error
+    } else {
+      error = (exception as any).name
+    }
+
 
     const message = [
       `${status !== HttpStatus.INTERNAL_SERVER_ERROR
@@ -33,6 +45,11 @@ export class HttpExceptionFilter implements ExceptionFilter {
       error,
       filds: null
     };
+
+    this.logger.error(
+      `${request.method} ${status} ${request.path} - ${userAgent} ${ip}`,
+      'HttpExceptionFilter'
+    );
 
     return response.status(status).json(errorResponse);
   }

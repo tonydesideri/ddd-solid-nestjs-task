@@ -4,12 +4,14 @@ import { CreateCommentUseCase } from 'src/domain/tasks/application/use-cases/cre
 import { CreateTaskUseCase } from 'src/domain/tasks/application/use-cases/create-task.use-case';
 import { DeleteCommentUseCase } from 'src/domain/tasks/application/use-cases/delete-comment.use-case';
 import { DeleteTaskUseCase } from 'src/domain/tasks/application/use-cases/delete-task.use-case';
+import { EditCommentUseCase } from 'src/domain/tasks/application/use-cases/edit-comment.use-case';
 import { EditTaskUseCase } from 'src/domain/tasks/application/use-cases/edit-task.use-case';
 import { FetchTasksUseCase } from 'src/domain/tasks/application/use-cases/fetch-tasks.use-case';
 import { GetTaskWithDetailsUseCase } from 'src/domain/tasks/application/use-cases/get-task-with-details.use-case';
 import { UploadAndCreateAttachmentUseCase } from 'src/domain/tasks/application/use-cases/upload-and-create-attachment.use-case';
 import { DatabaseModule } from '../database/database.module';
 import { PrismaAttachmentsRepositoryImpl } from '../database/prisma/tasks/repositories/prisma-attachment-repository.impl';
+import { PrismaCommentAttachmentsRepositoryImpl } from '../database/prisma/tasks/repositories/prisma-comment-attachments-repository.impl';
 import { PrismaCommentsRepositoryImpl } from '../database/prisma/tasks/repositories/prisma-comments-repository.impl';
 import { PrismaTaskAttachmentsRepositoryImpl } from '../database/prisma/tasks/repositories/prisma-task-attachments-repository.impl';
 import { PrismaTasksRepositoryImpl } from '../database/prisma/tasks/repositories/prisma-tasks-repository.impl';
@@ -21,6 +23,7 @@ import { CreateCommentController } from './tasks/controllers/create-comment.cont
 import { CreateTaskController } from './tasks/controllers/create-task.controller';
 import { DeleteCommentController } from './tasks/controllers/delete-comment.controller';
 import { DeleteTaskController } from './tasks/controllers/delete-task.controller';
+import { EditCommentController } from './tasks/controllers/edit-comment.controller';
 import { EditTaskController } from './tasks/controllers/edit-task.controller';
 import { FetchRecentTasksController } from './tasks/controllers/fetch-recent-tasks.controller';
 import { GetTaskWithDetailsController } from './tasks/controllers/get-task-with-details.controller';
@@ -36,7 +39,8 @@ import { GetTaskWithDetailsController } from './tasks/controllers/get-task-with-
     UploadAttachmentController,
     GetTaskWithDetailsController,
     CreateCommentController,
-    DeleteCommentController
+    DeleteCommentController,
+    EditCommentController
   ],
   providers: [
     {
@@ -95,6 +99,12 @@ import { GetTaskWithDetailsController } from './tasks/controllers/get-task-with-
       useFactory: (repository: PrismaCommentsRepositoryImpl) =>
         new DeleteCommentUseCase(repository),
       inject: [PrismaCommentsRepositoryImpl],
+    },
+    {
+      provide: EditCommentUseCase,
+      useFactory: (commentsRepository: PrismaCommentsRepositoryImpl, commentAttachmentsRepository: PrismaCommentAttachmentsRepositoryImpl) =>
+        new EditCommentUseCase(commentsRepository, commentAttachmentsRepository),
+      inject: [PrismaCommentsRepositoryImpl, PrismaCommentAttachmentsRepositoryImpl],
     },
   ],
 })

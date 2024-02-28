@@ -27,9 +27,10 @@ import { PrismaTasksRepositoryImpl } from './prisma/tasks/repositories/prisma-ta
   ],
   exports: [
     PrismaService,
+    ITaskAttachmentsRepository,
+    ICommentAttachmentsRepository,
     PrismaTasksRepositoryImpl,
     PrismaTaskAttachmentsRepositoryImpl,
-    ITaskAttachmentsRepository,
     PrismaCommentsRepositoryImpl,
     PrismaCommentAttachmentsRepositoryImpl,
     PrismaAttachmentsRepositoryImpl

@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { DomainEvents } from 'src/core/events/domain-events';
 import { PaginationParams } from 'src/core/repositories/pagination-params.contract';
 import { ITaskAttachmentsRepository } from 'src/domain/tasks/application/repositories/task-attachments-repository.contract';
 import { ITasksRepository } from 'src/domain/tasks/application/repositories/tasks-repository.contract';
@@ -89,6 +90,7 @@ export class PrismaTasksRepositoryImpl implements ITasksRepository {
       )
     ])
 
+    DomainEvents.dispatchEventsForAggregate(task.id)
   }
 
   async findManyRecent({ page }: PaginationParams): Promise<Task[]> {

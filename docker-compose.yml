@@ -11,12 +11,12 @@ services:
       POSTGRES_PASSWORD: docker
       POSTGRES_DB: boilerplate
       PGDATA: /data/postgres
-    volumes:
-      - ./data/postgres:/data/postgres
-  # redis:
-  #   container_name: boilerbplate-db-redis
-  #   image: redis
-  #   ports:
-  #     - 6379:6379
-  #   volumes:
-  #     - ./data/redis:/data
+    # volumes:
+    #   - ./data/postgres:/data/postgres
+    # redis:
+    #   container_name: boilerbplate-db-redis
+    #   image: redis
+    #   ports:
+    #     - 6379:6379
+    #   volumes:
+    #     - ./data/redis:/data

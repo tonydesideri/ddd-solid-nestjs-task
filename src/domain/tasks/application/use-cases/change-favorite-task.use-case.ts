@@ -1,11 +1,11 @@
-import { ITasksRepository } from '../repositories/tasks-repository.contract';
 import { Either, failure, success } from 'src/core/types/either';
+import { ITasksRepository } from '../repositories/tasks-repository.contract';
 import { ResourceNotFoundError } from './errors/resource-not-found-error';
-interface ChangeFavoriteTaskUseCaseRequest {
+export interface ChangeFavoriteTaskUseCaseRequest {
   taskId: string;
 }
 
-type ChangeFavoriteTaskUseCaseResponse = Either<ResourceNotFoundError, object>;
+export type ChangeFavoriteTaskUseCaseResponse = Either<ResourceNotFoundError, object>;
 
 export class ChangeFavoriteTaskUseCase {
   constructor(private tasksRepository: ITasksRepository) { }

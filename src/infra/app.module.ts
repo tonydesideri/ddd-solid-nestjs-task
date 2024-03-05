@@ -7,6 +7,7 @@ import { EnvService } from './common/env/env.service';
 import { HttpExceptionFilter } from './common/exception/http-exception.filter';
 import { ValidationExceptionFilter } from './common/exception/validation-exception.filter';
 import { LoggingInterceptor } from './common/interceptor/logging.interceptor';
+import { EventsModule } from './events/events.module';
 import { HttpModule } from './http/http.module';
 
 @Module({
@@ -15,7 +16,8 @@ import { HttpModule } from './http/http.module';
       rootPath: path.join(__dirname, '..', '..', '..', 'uploads'),
     }),
     EnvModule,
-    HttpModule
+    HttpModule,
+    EventsModule
   ],
   controllers: [],
   providers: [

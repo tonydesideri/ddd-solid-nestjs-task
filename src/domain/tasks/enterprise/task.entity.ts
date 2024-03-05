@@ -1,6 +1,7 @@
 import { AggregateRoot } from 'src/core/entities/aggregate-root';
 import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 import { Optional } from 'src/core/types/optional';
+import { TaskChangedIsFavorite } from '../events/task-changed-is-favorite.event';
 import { TaskAttachmentList } from './task-attachment-list.entity';
 
 export interface TaskProps {
@@ -87,6 +88,11 @@ export class Task extends AggregateRoot<TaskProps> {
 
   set isFavorite(value: boolean) {
     this.props.isFavorite = value;
+
+    if (value) {
+      this.addDomainEvent(new TaskChangedIsFavorite(this))
+    }
+
     this.touch();
   }
 

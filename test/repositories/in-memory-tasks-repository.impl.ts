@@ -1,4 +1,5 @@
 import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
+import { DomainEvents } from 'src/core/events/domain-events';
 import { PaginationParams } from 'src/core/repositories/pagination-params.contract';
 import { ITasksRepository } from 'src/domain/tasks/application/repositories/tasks-repository.contract';
 import { Task } from 'src/domain/tasks/enterprise/task.entity';
@@ -151,6 +152,8 @@ export class InMemoryTasksRepositoryImpl implements ITasksRepository {
       await this.taskAttachmentsRepository.createMany(data.attachments.getNewItems())
 
       await this.taskAttachmentsRepository.deleteMany(data.attachments.getRemovedItems())
+
+      DomainEvents.dispatchEventsForAggregate(data.id)
     }
   }
 

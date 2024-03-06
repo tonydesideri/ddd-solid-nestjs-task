@@ -1,5 +1,5 @@
-import { IBaseRepository } from 'src/core/repositories/base-repository.contract';
-import { PaginationParams } from 'src/core/repositories/pagination-params.contract';
+import { IBaseRepository } from 'core/repositories/base-repository.contract';
+import { PaginationParams } from 'core/repositories/pagination-params.contract';
 
 const PERPAGE = 20;
 export class InMemoryRepositoryImpl<T> extends IBaseRepository<T> {

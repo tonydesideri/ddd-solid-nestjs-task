@@ -1,5 +1,5 @@
-import { ValueObject } from "src/core/entities/value-object";
-import { Either, failure, success } from "src/core/types/either";
+import { ValueObject } from "core/entities/value-object";
+import { Either, failure, success } from "core/types/either";
 import { InvalidEmailAddressError } from "../errors/invalid-email-address-error";
 
 interface EmailAddressProps {

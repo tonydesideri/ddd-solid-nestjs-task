@@ -1,4 +1,4 @@
-import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
+import { UniqueEntityID } from 'core/entities/unique-entity-id';
 import { InMemoryRepositoriesProps, makeInMemoryRepositories } from 'test/factories/make-in-memory-repositories.factory';
 import { makeTask } from 'test/factories/make-task.factory';
 import { ChangeFavoriteTaskUseCase } from './change-favorite-task.use-case';

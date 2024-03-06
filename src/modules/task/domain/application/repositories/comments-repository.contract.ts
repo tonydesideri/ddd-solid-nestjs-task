@@ -1,4 +1,4 @@
-import { Comment } from 'src/modules/task/domain/enterprise//comment.entity';
+import { Comment } from 'src/modules/task/domain/enterprise/comment.entity';
 
 export interface ICommentsRepository {
   create(data: Comment): Promise<void>;

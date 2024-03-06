@@ -1,5 +1,5 @@
-import { Either, failure, success } from 'src/core/types/either';
-import { TaskWithDetails } from 'src/modules/task/domain/enterprise//value-objects/task-with-details';
+import { Either, failure, success } from 'core/types/either';
+import { TaskWithDetails } from 'src/modules/task/domain/enterprise/value-objects/task-with-details';
 import { ITasksRepository } from '../repositories/tasks-repository.contract';
 import { ResourceNotFoundError } from './errors/resource-not-found-error';
 

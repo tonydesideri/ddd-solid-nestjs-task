@@ -21,6 +21,12 @@
     "paths": {
       "src/*": [
         "src/*"
+      ],
+      "common/*": [
+        "src/common/*"
+      ],
+      "core/*": [
+        "src/core/*"
       ]
     },
     "types": [

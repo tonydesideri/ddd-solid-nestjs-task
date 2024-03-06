@@ -1,6 +1,6 @@
 import { $Enums } from '@prisma/client';
-import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
-import { TaskLessDetails } from 'src/modules/task/domain/enterprise//value-objects/task-less-details';
+import { UniqueEntityID } from 'core/entities/unique-entity-id';
+import { TaskLessDetails } from 'src/modules/task/domain/enterprise/value-objects/task-less-details';
 
 
 type PrismaTaskLessDetails = {

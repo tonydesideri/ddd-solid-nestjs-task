@@ -1,4 +1,4 @@
-import { TaskAttachment } from 'src/modules/task/domain/enterprise//task-attachment.entity';
+import { TaskAttachment } from 'src/modules/task/domain/enterprise/task-attachment.entity';
 
 export abstract class ITaskAttachmentsRepository {
   abstract createMany(attachments: TaskAttachment[]): Promise<void>

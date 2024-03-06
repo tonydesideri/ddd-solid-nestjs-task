@@ -1,4 +1,4 @@
-import { Either, failure, success } from "src/core/types/either";
+import { Either, failure, success } from "core/types/either";
 import { InvalidEmailAddressError } from "../../enterprise/errors/invalid-email-address-error";
 import { Mail } from "../../enterprise/mail";
 import { EmailAddress } from "../../enterprise/value-objects/email-address";

@@ -1,4 +1,4 @@
-import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
+import { UniqueEntityID } from 'core/entities/unique-entity-id';
 import { makeCommentAttachment } from 'test/factories/make-comment-attachment.factory';
 import { makeComment } from 'test/factories/make-comment.factory';
 import { InMemoryRepositoriesProps, makeInMemoryRepositories } from 'test/factories/make-in-memory-repositories.factory';

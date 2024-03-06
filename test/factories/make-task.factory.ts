@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { Injectable } from '@nestjs/common';
-import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
-import { Task, TaskProps } from 'src/modules/task/domain/enterprise//task.entity';
+import { UniqueEntityID } from 'core/entities/unique-entity-id';
+import { Task, TaskProps } from 'src/modules/task/domain/enterprise/task.entity';
 import { PrismaService } from 'src/modules/task/infra/database/prisma/prisma.service';
 import { PrismaTaskMapper } from 'src/modules/task/infra/database/prisma/tasks/mappers/prisma-task.mapper';
 

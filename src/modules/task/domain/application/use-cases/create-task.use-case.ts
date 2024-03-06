@@ -1,8 +1,8 @@
-import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
-import { Either, success } from 'src/core/types/either';
-import { TaskAttachmentList } from 'src/modules/task/domain/enterprise//task-attachment-list.entity';
-import { TaskAttachment } from 'src/modules/task/domain/enterprise//task-attachment.entity';
-import { Task } from 'src/modules/task/domain/enterprise//task.entity';
+import { UniqueEntityID } from 'core/entities/unique-entity-id';
+import { Either, success } from 'core/types/either';
+import { TaskAttachmentList } from 'src/modules/task/domain/enterprise/task-attachment-list.entity';
+import { TaskAttachment } from 'src/modules/task/domain/enterprise/task-attachment.entity';
+import { Task } from 'src/modules/task/domain/enterprise/task.entity';
 import { ITasksRepository } from '../repositories/tasks-repository.contract';
 
 interface CreateTaskUseCaseRequest {

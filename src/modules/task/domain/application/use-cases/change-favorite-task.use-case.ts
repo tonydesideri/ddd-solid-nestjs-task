@@ -1,4 +1,4 @@
-import { Either, failure, success } from 'src/core/types/either';
+import { Either, failure, success } from 'core/types/either';
 import { ITasksRepository } from '../repositories/tasks-repository.contract';
 import { ResourceNotFoundError } from './errors/resource-not-found-error';
 export interface ChangeFavoriteTaskUseCaseRequest {

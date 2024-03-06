@@ -1,11 +1,11 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { EnvService } from 'src/common/env/env.service';
-import { HttpExceptionFilter } from 'src/common/exception/http-exception.filter';
-import { PrismaExceptionFilter } from 'src/common/exception/prisma-exception.filter';
-import { ValidationExceptionFilter } from 'src/common/exception/validation-exception.filter';
-import { ValidationException } from 'src/common/exception/validation.exeption';
+import { EnvService } from 'common/env/env.service';
+import { HttpExceptionFilter } from 'common/exception/http-exception.filter';
+import { PrismaExceptionFilter } from 'common/exception/prisma-exception.filter';
+import { ValidationExceptionFilter } from 'common/exception/validation-exception.filter';
+import { ValidationException } from 'common/exception/validation.exeption';
 import { AppModule } from './app.module';
 
 

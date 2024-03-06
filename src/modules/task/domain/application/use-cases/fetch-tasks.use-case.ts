@@ -1,5 +1,5 @@
-import { Either, success } from 'src/core/types/either';
-import { TaskWithAttachment } from 'src/modules/task/domain/enterprise//value-objects/task-with-attachment';
+import { Either, success } from 'core/types/either';
+import { TaskWithAttachment } from 'src/modules/task/domain/enterprise/value-objects/task-with-attachment';
 import { ITasksRepository } from '../repositories/tasks-repository.contract';
 
 interface FetchTasksUseCaseRequest {

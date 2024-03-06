@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { Injectable } from '@nestjs/common';
-import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
-import { Comment, CommentProps } from 'src/modules/task/domain/enterprise//comment.entity';
+import { UniqueEntityID } from 'core/entities/unique-entity-id';
+import { Comment, CommentProps } from 'src/modules/task/domain/enterprise/comment.entity';
 import { PrismaService } from 'src/modules/task/infra/database/prisma/prisma.service';
 import { PrismaCommentMapper } from 'src/modules/task/infra/database/prisma/tasks/mappers/prisma-comment.mapper';
 

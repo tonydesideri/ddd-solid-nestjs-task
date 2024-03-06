@@ -1,6 +1,6 @@
 import { Prisma, Comment as PrismaComment } from '@prisma/client';
-import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
-import { Comment } from 'src/modules/task/domain/enterprise//comment.entity';
+import { UniqueEntityID } from 'core/entities/unique-entity-id';
+import { Comment } from 'src/modules/task/domain/enterprise/comment.entity';
 
 export class PrismaCommentMapper {
   static toDomain(raw: PrismaComment): Comment {

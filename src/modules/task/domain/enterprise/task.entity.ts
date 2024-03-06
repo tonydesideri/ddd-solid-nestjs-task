@@ -1,6 +1,6 @@
-import { AggregateRoot } from 'src/core/entities/aggregate-root';
-import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
-import { Optional } from 'src/core/types/optional';
+import { AggregateRoot } from 'core/entities/aggregate-root';
+import { UniqueEntityID } from 'core/entities/unique-entity-id';
+import { Optional } from 'core/types/optional';
 import { TaskChangedIsFavorite } from '../events/task-changed-is-favorite.event';
 import { TaskAttachmentList } from './task-attachment-list.entity';
 

@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { UniqueEntityID } from "src/core/entities/unique-entity-id";
+import { UniqueEntityID } from "core/entities/unique-entity-id";
 import { Mail, MailProps } from "src/modules/notification/domain/enterprise/mail";
 import { EmailAddress } from "src/modules/notification/domain/enterprise/value-objects/email-address";
 

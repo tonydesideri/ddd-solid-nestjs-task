@@ -1,6 +1,6 @@
 import { Attachment as PrismaAttachment } from '@prisma/client';
-import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
-import { CommentAttachment } from 'src/modules/task/domain/enterprise//comment-attachment.entity';
+import { UniqueEntityID } from 'core/entities/unique-entity-id';
+import { CommentAttachment } from 'src/modules/task/domain/enterprise/comment-attachment.entity';
 
 
 export class PrismaCommentAttachmentMapper {

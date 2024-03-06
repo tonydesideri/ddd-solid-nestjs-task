@@ -1,9 +1,9 @@
 import { config } from 'dotenv';
 
 import { PrismaClient } from '@prisma/client';
+import { DomainEvents } from 'core/events/domain-events';
 import { execSync } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
-import { DomainEvents } from 'src/core/events/domain-events';
 
 config({ path: '.env', override: true });
 config({ path: '.env.test', override: true });

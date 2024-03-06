@@ -1,5 +1,5 @@
-import { DomainEvents } from "src/core/events/domain-events";
-import { EventHandler } from "src/core/events/event-handler";
+import { DomainEvents } from "core/events/domain-events";
+import { EventHandler } from "core/events/event-handler";
 import { TaskChangedIsFavorite } from "src/modules/task/domain/events/task-changed-is-favorite.event";
 import { SendEmailUseCase } from "../use-cases/send-email.use-case";
 

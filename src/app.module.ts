@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { EnvModule } from 'common/env/env.module';
+import { EnvService } from 'common/env/env.service';
+import { HttpExceptionFilter } from 'common/exception/http-exception.filter';
+import { ValidationExceptionFilter } from 'common/exception/validation-exception.filter';
+import { LoggingInterceptor } from 'common/interceptor/logging.interceptor';
 import * as path from 'path';
-import { EnvModule } from 'src/common/env/env.module';
-import { EnvService } from 'src/common/env/env.service';
-import { HttpExceptionFilter } from 'src/common/exception/http-exception.filter';
-import { ValidationExceptionFilter } from 'src/common/exception/validation-exception.filter';
-import { LoggingInterceptor } from 'src/common/interceptor/logging.interceptor';
 import { EventsModule } from './modules/notification/infra/events/events.module';
 import { HttpModule } from './modules/task/infra/http/http.module';
 

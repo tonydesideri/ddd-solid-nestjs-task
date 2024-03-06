@@ -1,4 +1,4 @@
-import { CommentAttachment } from 'src/modules/task/domain/enterprise//comment-attachment.entity';
+import { CommentAttachment } from 'src/modules/task/domain/enterprise/comment-attachment.entity';
 
 export abstract class ICommentAttachmentsRepository {
   abstract createMany(attachments: CommentAttachment[]): Promise<void>

@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common"
-import { Either, failure, success } from "src/core/types/either"
-import { Attachment } from "src/modules/task/domain/enterprise//attachment.entity"
+import { Either, failure, success } from "core/types/either"
+import { Attachment } from "src/modules/task/domain/enterprise/attachment.entity"
 import { IAttachmentsRepository } from "../repositories/attachments-repository.contract"
 import { Uploader } from "../storage/uploader.contract"
 import { InvalidAttachmentTypeError } from "./errors/invalid-attachment-type-error"

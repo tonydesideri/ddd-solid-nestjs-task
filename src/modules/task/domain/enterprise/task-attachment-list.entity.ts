@@ -1,4 +1,4 @@
-import { WatchedList } from 'src/core/entities/watched-list';
+import { WatchedList } from 'core/entities/watched-list';
 import { TaskAttachment } from './task-attachment.entity';
 
 export class TaskAttachmentList extends WatchedList<TaskAttachment> {

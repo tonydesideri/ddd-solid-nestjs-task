@@ -1,4 +1,4 @@
-import { WatchedList } from 'src/core/entities/watched-list';
+import { WatchedList } from 'core/entities/watched-list';
 import { CommentAttachment } from './comment-attachment.entity';
 
 export class CommentAttachmentList extends WatchedList<CommentAttachment> {

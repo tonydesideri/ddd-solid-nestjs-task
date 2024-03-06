@@ -1,4 +1,4 @@
-import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
+import { UniqueEntityID } from 'core/entities/unique-entity-id';
 import { Task } from './task.entity';
 
 describe('TaskEntity', () => {

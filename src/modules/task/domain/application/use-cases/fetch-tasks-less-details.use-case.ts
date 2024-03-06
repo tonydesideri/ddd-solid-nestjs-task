@@ -1,5 +1,5 @@
-import { Either, success } from 'src/core/types/either';
-import { TaskLessDatailsProps } from 'src/modules/task/domain/enterprise//value-objects/task-less-details';
+import { Either, success } from 'core/types/either';
+import { TaskLessDatailsProps } from 'src/modules/task/domain/enterprise/value-objects/task-less-details';
 import { ITasksRepository } from '../repositories/tasks-repository.contract';
 
 interface FetchTasksLessDetailsUseCaseRequest { }

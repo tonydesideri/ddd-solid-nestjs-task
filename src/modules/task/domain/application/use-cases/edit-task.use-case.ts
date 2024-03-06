@@ -1,8 +1,8 @@
-import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
-import { Either, failure, success } from 'src/core/types/either';
-import { TaskAttachmentList } from 'src/modules/task/domain/enterprise//task-attachment-list.entity';
-import { TaskAttachment } from 'src/modules/task/domain/enterprise//task-attachment.entity';
-import { Task } from 'src/modules/task/domain/enterprise//task.entity';
+import { UniqueEntityID } from 'core/entities/unique-entity-id';
+import { Either, failure, success } from 'core/types/either';
+import { TaskAttachmentList } from 'src/modules/task/domain/enterprise/task-attachment-list.entity';
+import { TaskAttachment } from 'src/modules/task/domain/enterprise/task-attachment.entity';
+import { Task } from 'src/modules/task/domain/enterprise/task.entity';
 import { ITaskAttachmentsRepository } from '../repositories/task-attachments-repository.contract';
 import { ITasksRepository } from '../repositories/tasks-repository.contract';
 import { ResourceNotFoundError } from './errors/resource-not-found-error';

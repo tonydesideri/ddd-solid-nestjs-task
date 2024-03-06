@@ -1,6 +1,6 @@
 import { Prisma, Task as PrismaTask } from '@prisma/client';
-import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
-import { Task } from 'src/modules/task/domain/enterprise//task.entity';
+import { UniqueEntityID } from 'core/entities/unique-entity-id';
+import { Task } from 'src/modules/task/domain/enterprise/task.entity';
 
 export class PrismaTaskMapper {
   static toDomain(raw: PrismaTask): Task {

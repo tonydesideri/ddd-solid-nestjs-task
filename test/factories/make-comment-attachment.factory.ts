@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
+import { UniqueEntityID } from 'core/entities/unique-entity-id';
 import {
   CommentAttachment,
   CommentAttachmentProps,
-} from 'src/modules/task/domain/enterprise//comment-attachment.entity';
+} from 'src/modules/task/domain/enterprise/comment-attachment.entity';
 import { PrismaService } from 'src/modules/task/infra/database/prisma/prisma.service';
 
 export function makeCommentAttachment(

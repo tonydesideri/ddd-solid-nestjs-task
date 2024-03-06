@@ -1,4 +1,4 @@
-import { UseCaseError } from "src/core/errors/use-case-error.contract";
+import { UseCaseError } from "core/errors/use-case-error.contract";
 
 export class InvalidAttachmentTypeError extends Error implements UseCaseError {
   constructor(type: string) {

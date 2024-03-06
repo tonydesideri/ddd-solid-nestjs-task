@@ -1,4 +1,4 @@
-import { Either, failure, success } from 'src/core/types/either';
+import { Either, failure, success } from 'core/types/either';
 import { ICommentsRepository } from '../repositories/comments-repository.contract';
 import { ResourceNotFoundError } from './errors/resource-not-found-error';
 
@@ -9,7 +9,7 @@ interface DeleteCommentUseCaseRequest {
 type DeleteCommentUseCaseResponse = Either<ResourceNotFoundError, object>;
 
 export class DeleteCommentUseCase {
-  constructor(private commentsRepository: ICommentsRepository) {}
+  constructor(private commentsRepository: ICommentsRepository) { }
 
   async execute({
     commentId,

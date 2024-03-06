@@ -3,8 +3,8 @@ import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 import {
   TaskAttachment,
   TaskAttachmentProps,
-} from 'src/domain/tasks/enterprise/task-attachment.entity';
-import { PrismaService } from 'src/infra/database/prisma/prisma.service';
+} from 'src/modules/task/domain/enterprise//task-attachment.entity';
+import { PrismaService } from 'src/modules/task/infra/database/prisma/prisma.service';
 
 export function makeTaskAttachment(
   override: Partial<TaskAttachmentProps> = {},

@@ -3,8 +3,8 @@ import { UniqueEntityID } from 'src/core/entities/unique-entity-id';
 import {
   CommentAttachment,
   CommentAttachmentProps,
-} from 'src/domain/tasks/enterprise/comment-attachment.entity';
-import { PrismaService } from 'src/infra/database/prisma/prisma.service';
+} from 'src/modules/task/domain/enterprise//comment-attachment.entity';
+import { PrismaService } from 'src/modules/task/infra/database/prisma/prisma.service';
 
 export function makeCommentAttachment(
   override: Partial<CommentAttachmentProps> = {},

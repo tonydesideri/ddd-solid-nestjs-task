@@ -1,5 +1,5 @@
-import { ICommentAttachmentsRepository } from 'src/domain/tasks/application/repositories/comment-attachments-repository.contract';
-import { CommentAttachment } from 'src/domain/tasks/enterprise/comment-attachment.entity';
+import { ICommentAttachmentsRepository } from 'src/modules/task/domain/application/repositories/comment-attachments-repository.contract';
+import { CommentAttachment } from 'src/modules/task/domain/enterprise//comment-attachment.entity';
 
 export class InMemoryCommentAttachmentsRepositoryImpl
   implements ICommentAttachmentsRepository {

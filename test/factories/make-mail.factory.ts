@@ -1,7 +1,8 @@
 import { faker } from "@faker-js/faker";
 import { UniqueEntityID } from "src/core/entities/unique-entity-id";
-import { Mail, MailProps } from "src/domain/notification/enterprise/mail";
-import { EmailAddress } from "src/domain/notification/enterprise/value-objects/email-address";
+import { Mail, MailProps } from "src/modules/notification/domain/enterprise/mail";
+import { EmailAddress } from "src/modules/notification/domain/enterprise/value-objects/email-address";
+
 
 export function makeMail(
   override: Partial<MailProps> = {},

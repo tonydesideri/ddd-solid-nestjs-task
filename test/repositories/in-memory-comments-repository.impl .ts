@@ -1,6 +1,6 @@
-import { ICommentAttachmentsRepository } from 'src/domain/tasks/application/repositories/comment-attachments-repository.contract';
-import { ICommentsRepository } from 'src/domain/tasks/application/repositories/comments-repository.contract';
-import { Comment } from 'src/domain/tasks/enterprise/comment.entity';
+import { ICommentAttachmentsRepository } from 'src/modules/task/domain/application/repositories/comment-attachments-repository.contract';
+import { ICommentsRepository } from 'src/modules/task/domain/application/repositories/comments-repository.contract';
+import { Comment } from 'src/modules/task/domain/enterprise//comment.entity';
 
 export class InMemoryCommentsRepositoryImpl implements ICommentsRepository {
   public items: Comment[] = [];

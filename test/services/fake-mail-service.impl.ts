@@ -1,5 +1,5 @@
-import { IMailsService } from "src/domain/notification/application/services/mails-service.contract";
-import { Mail } from "src/domain/notification/enterprise/mail";
+import { IMailsService } from "src/modules/notification/domain/application/services/mails-service.contract"
+import { Mail } from "src/modules/notification/domain/enterprise/mail"
 
 export class FakeMailServiceImpl implements IMailsService {
   public items: Mail[] = []

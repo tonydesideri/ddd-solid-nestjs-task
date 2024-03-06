@@ -7,11 +7,11 @@ import { Task } from 'src/modules/task/domain/enterprise/task.entity';
 import { TaskLessDetails } from 'src/modules/task/domain/enterprise/value-objects/task-less-details';
 import { TaskWithAttachment } from 'src/modules/task/domain/enterprise/value-objects/task-with-attachment';
 import { TaskWithDetails } from 'src/modules/task/domain/enterprise/value-objects/task-with-details';
-import { PrismaService } from '../../prisma.service';
 import { PrismaTaskLessDetailsMapper } from '../mappers/prisma-task-less-details.mapper';
 import { PrismaTaskWithAttachmentMapper } from '../mappers/prisma-task-with-attachment.mapper';
 import { PrismaTaskWithDetailsMapper } from '../mappers/prisma-task-with-details.mapper';
 import { PrismaTaskMapper } from '../mappers/prisma-task.mapper';
+import { PrismaService } from '../prisma.service';
 
 @Injectable()
 export class PrismaTasksRepositoryImpl implements ITasksRepository {

@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { ICommentAttachmentsRepository } from 'src/modules/task/domain/application/repositories/comment-attachments-repository.contract';
 import { ICommentsRepository } from 'src/modules/task/domain/application/repositories/comments-repository.contract';
 import { Comment } from 'src/modules/task/domain/enterprise/comment.entity';
-import { PrismaService } from '../../prisma.service';
 import { PrismaCommentMapper } from '../mappers/prisma-comment.mapper';
+import { PrismaService } from '../prisma.service';
 
 @Injectable()
 export class PrismaCommentsRepositoryImpl implements ICommentsRepository {

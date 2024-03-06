@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-
 import { ChangeFavoriteTaskUseCase } from '../../domain/application/use-cases/change-favorite-task.use-case';
 import { CreateCommentUseCase } from '../../domain/application/use-cases/create-comment.use-case';
 import { CreateTaskUseCase } from '../../domain/application/use-cases/create-task.use-case';
@@ -11,23 +10,23 @@ import { FetchTasksUseCase } from '../../domain/application/use-cases/fetch-task
 import { GetTaskWithDetailsUseCase } from '../../domain/application/use-cases/get-task-with-details.use-case';
 import { UploadAndCreateAttachmentUseCase } from '../../domain/application/use-cases/upload-and-create-attachment.use-case';
 import { DatabaseModule } from '../database/database.module';
-import { PrismaAttachmentsRepositoryImpl } from '../database/prisma/tasks/repositories/prisma-attachment-repository.impl';
-import { PrismaCommentAttachmentsRepositoryImpl } from '../database/prisma/tasks/repositories/prisma-comment-attachments-repository.impl';
-import { PrismaCommentsRepositoryImpl } from '../database/prisma/tasks/repositories/prisma-comments-repository.impl';
-import { PrismaTaskAttachmentsRepositoryImpl } from '../database/prisma/tasks/repositories/prisma-task-attachments-repository.impl';
-import { PrismaTasksRepositoryImpl } from '../database/prisma/tasks/repositories/prisma-tasks-repository.impl';
+import { PrismaAttachmentsRepositoryImpl } from '../database/prisma/repositories/prisma-attachment-repository.impl';
+import { PrismaCommentAttachmentsRepositoryImpl } from '../database/prisma/repositories/prisma-comment-attachments-repository.impl';
+import { PrismaCommentsRepositoryImpl } from '../database/prisma/repositories/prisma-comments-repository.impl';
+import { PrismaTaskAttachmentsRepositoryImpl } from '../database/prisma/repositories/prisma-task-attachments-repository.impl';
+import { PrismaTasksRepositoryImpl } from '../database/prisma/repositories/prisma-tasks-repository.impl';
 import { FileSystemStorageImpl } from '../storage/file-system-storage.impl';
 import { StorageModule } from '../storage/storage.module';
-import { UploadAttachmentController } from './attachments/controllers/upload-attachment.controller';
-import { ChangeFavoriteTaskController } from './tasks/controllers/change-favorite-task.controller';
-import { CreateCommentController } from './tasks/controllers/create-comment.controller';
-import { CreateTaskController } from './tasks/controllers/create-task.controller';
-import { DeleteCommentController } from './tasks/controllers/delete-comment.controller';
-import { DeleteTaskController } from './tasks/controllers/delete-task.controller';
-import { EditCommentController } from './tasks/controllers/edit-comment.controller';
-import { EditTaskController } from './tasks/controllers/edit-task.controller';
-import { FetchRecentTasksController } from './tasks/controllers/fetch-recent-tasks.controller';
-import { GetTaskWithDetailsController } from './tasks/controllers/get-task-with-details.controller';
+import { ChangeFavoriteTaskController } from './controllers/change-favorite-task.controller';
+import { CreateCommentController } from './controllers/create-comment.controller';
+import { CreateTaskController } from './controllers/create-task.controller';
+import { DeleteCommentController } from './controllers/delete-comment.controller';
+import { DeleteTaskController } from './controllers/delete-task.controller';
+import { EditCommentController } from './controllers/edit-comment.controller';
+import { EditTaskController } from './controllers/edit-task.controller';
+import { FetchRecentTasksController } from './controllers/fetch-recent-tasks.controller';
+import { GetTaskWithDetailsController } from './controllers/get-task-with-details.controller';
+import { UploadAttachmentController } from './controllers/upload-attachment.controller';
 
 @Module({
   imports: [DatabaseModule, StorageModule],

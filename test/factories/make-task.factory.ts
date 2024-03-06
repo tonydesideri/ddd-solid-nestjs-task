@@ -2,8 +2,8 @@ import { faker } from '@faker-js/faker';
 import { Injectable } from '@nestjs/common';
 import { UniqueEntityID } from 'core/entities/unique-entity-id';
 import { Task, TaskProps } from 'src/modules/task/domain/enterprise/task.entity';
+import { PrismaTaskMapper } from 'src/modules/task/infra/database/prisma/mappers/prisma-task.mapper';
 import { PrismaService } from 'src/modules/task/infra/database/prisma/prisma.service';
-import { PrismaTaskMapper } from 'src/modules/task/infra/database/prisma/tasks/mappers/prisma-task.mapper';
 
 export function makeTask(
   override: Partial<TaskProps> = {},

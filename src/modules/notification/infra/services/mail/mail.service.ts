@@ -1,10 +1,10 @@
 import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable } from '@nestjs/common';
-import { IMailsService } from 'src/modules/notification/domain/application/services/mails-service.contract';
+import { IMailService } from 'src/modules/notification/domain/application/services/mail-service.contract';
 import { Mail } from 'src/modules/notification/domain/enterprise/mail';
 
 @Injectable()
-export class MailsServiceImpl implements IMailsService {
+export class MailsServiceImpl implements IMailService {
   constructor(private readonly mailerService: MailerService) { }
 
   async send(mail: Mail): Promise<void> {

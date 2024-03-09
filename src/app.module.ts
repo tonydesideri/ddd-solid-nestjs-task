@@ -7,8 +7,8 @@ import { HttpExceptionFilter } from 'common/exception/http-exception.filter';
 import { ValidationExceptionFilter } from 'common/exception/validation-exception.filter';
 import { LoggingInterceptor } from 'common/interceptor/logging.interceptor';
 import * as path from 'path';
-import { EventsModule } from './modules/notification/infra/events/events.module';
-import { HttpModule } from './modules/task/infra/http/http.module';
+import { NotificationModule } from './modules/notification/notification.module';
+import { TaskModule } from './modules/task/task.module';
 
 @Module({
   imports: [
@@ -16,8 +16,8 @@ import { HttpModule } from './modules/task/infra/http/http.module';
       rootPath: path.join(__dirname, '..', '..', '..', 'uploads'),
     }),
     EnvModule,
-    HttpModule,
-    EventsModule
+    TaskModule,
+    NotificationModule
   ],
   controllers: [],
   providers: [

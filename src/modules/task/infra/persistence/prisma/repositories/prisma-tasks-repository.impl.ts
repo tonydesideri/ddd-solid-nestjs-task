@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { DomainEvents } from 'core/events/domain-events';
 import { PaginationParams } from 'core/repositories/pagination-params.contract';
+import { PrismaService } from 'src/common/database/prisma/prisma.service';
 import { ITaskAttachmentsRepository } from 'src/modules/task/domain/application/repositories/task-attachments-repository.contract';
 import { ITasksRepository } from 'src/modules/task/domain/application/repositories/tasks-repository.contract';
 import { Task } from 'src/modules/task/domain/enterprise/task.entity';
@@ -11,7 +12,6 @@ import { PrismaTaskLessDetailsMapper } from '../mappers/prisma-task-less-details
 import { PrismaTaskWithAttachmentMapper } from '../mappers/prisma-task-with-attachment.mapper';
 import { PrismaTaskWithDetailsMapper } from '../mappers/prisma-task-with-details.mapper';
 import { PrismaTaskMapper } from '../mappers/prisma-task.mapper';
-import { PrismaService } from '../prisma.service';
 
 @Injectable()
 export class PrismaTasksRepositoryImpl implements ITasksRepository {

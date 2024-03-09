@@ -20,6 +20,12 @@ export class EnvVariables {
 
   @IsNumber()
   NOTIFICATION_PORT: number;
+
+  @IsString()
+  MAIL_HOST: string;
+
+  @IsNumber()
+  MAIL_PORT: number;
 }
 
 export function validate(config: Record<string, unknown>) {

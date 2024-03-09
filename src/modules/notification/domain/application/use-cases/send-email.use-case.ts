@@ -2,7 +2,7 @@ import { Either, failure, success } from "core/types/either";
 import { InvalidEmailAddressError } from "../../enterprise/errors/invalid-email-address-error";
 import { Mail } from "../../enterprise/mail";
 import { EmailAddress } from "../../enterprise/value-objects/email-address";
-import { IMailsService } from "../services/mails-service.contract";
+import { IMailService } from "../services/mail-service.contract";
 
 interface SendEmailUseCaseRequest {
   sender: string;
@@ -14,18 +14,16 @@ interface SendEmailUseCaseRequest {
 type SendEmailUseCaseResponse = Either<InvalidEmailAddressError, object>
 
 export class SendEmailUseCase {
-  constructor(private mailsService: IMailsService) { }
+  constructor(private mailsService: IMailService) { }
 
   async execute({ body, recipient, sender, subject }: SendEmailUseCaseRequest): Promise<SendEmailUseCaseResponse> {
     const senderOrError = EmailAddress.instance(sender)
     if (senderOrError.isFailure()) {
-      // TODO: Quando ocorrido erro em um evento, tratar na camada onde o evento é executado
       return failure(senderOrError.value)
     }
 
     const recipientOrError = EmailAddress.instance(recipient)
     if (recipientOrError.isFailure()) {
-      // TODO: Quando ocorrido erro em um evento, tratar na camada onde o evento é executado
       return failure(recipientOrError.value)
     }
 

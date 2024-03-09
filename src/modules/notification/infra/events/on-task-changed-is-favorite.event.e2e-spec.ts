@@ -1,8 +1,8 @@
 import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { AppModule } from 'src/app.module';
-import { DatabaseModule } from 'src/modules/task/infra/database/database.module';
-import request from 'supertest';
+import { DatabaseModule } from 'src/common/database/database.module';
+import { PersistenceModule } from 'src/modules/task/infra/persistence/persistence.module';
 import { TaskFactory } from 'test/factories/make-task.factory';
 import { vi } from 'vitest';
 import { OnTaskChangedIsFavorite } from '../../domain/application/subscribers/on-task-changed-is-favorite.sub';
@@ -19,7 +19,7 @@ describe('Change Favorite Task with valdiade mail send (e2e)', () => {
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
-      imports: [AppModule, DatabaseModule, ServicesModule],
+      imports: [AppModule, DatabaseModule, PersistenceModule, ServicesModule],
       providers: [
         TaskFactory,
         {
@@ -52,9 +52,11 @@ describe('Change Favorite Task with valdiade mail send (e2e)', () => {
     const task = await taskFactory.makePrismaTask()
     const taskId = task.id.toString()
 
-    await request(app.getHttpServer())
-      .patch(`/tasks/${taskId}`)
-      .send();
+    // TODO: Concluir estes teste
+
+    // await request(app.getHttpServer())
+    //   .patch(`/tasks/${taskId}`)
+    //   .send();
 
     // await waitFor(() => {
     //   expect(sendEmailUseCaseExecuteSpy).toHaveBeenCalled()

@@ -9,12 +9,12 @@ import { EditTaskUseCase } from '../../domain/application/use-cases/edit-task.us
 import { FetchTasksUseCase } from '../../domain/application/use-cases/fetch-tasks.use-case';
 import { GetTaskWithDetailsUseCase } from '../../domain/application/use-cases/get-task-with-details.use-case';
 import { UploadAndCreateAttachmentUseCase } from '../../domain/application/use-cases/upload-and-create-attachment.use-case';
-import { DatabaseModule } from '../database/database.module';
-import { PrismaAttachmentsRepositoryImpl } from '../database/prisma/repositories/prisma-attachment-repository.impl';
-import { PrismaCommentAttachmentsRepositoryImpl } from '../database/prisma/repositories/prisma-comment-attachments-repository.impl';
-import { PrismaCommentsRepositoryImpl } from '../database/prisma/repositories/prisma-comments-repository.impl';
-import { PrismaTaskAttachmentsRepositoryImpl } from '../database/prisma/repositories/prisma-task-attachments-repository.impl';
-import { PrismaTasksRepositoryImpl } from '../database/prisma/repositories/prisma-tasks-repository.impl';
+import { PersistenceModule } from '../persistence/persistence.module';
+import { PrismaAttachmentsRepositoryImpl } from '../persistence/prisma/repositories/prisma-attachment-repository.impl';
+import { PrismaCommentAttachmentsRepositoryImpl } from '../persistence/prisma/repositories/prisma-comment-attachments-repository.impl';
+import { PrismaCommentsRepositoryImpl } from '../persistence/prisma/repositories/prisma-comments-repository.impl';
+import { PrismaTaskAttachmentsRepositoryImpl } from '../persistence/prisma/repositories/prisma-task-attachments-repository.impl';
+import { PrismaTasksRepositoryImpl } from '../persistence/prisma/repositories/prisma-tasks-repository.impl';
 import { FileSystemStorageImpl } from '../storage/file-system-storage.impl';
 import { StorageModule } from '../storage/storage.module';
 import { ChangeFavoriteTaskController } from './controllers/change-favorite-task.controller';
@@ -29,7 +29,7 @@ import { GetTaskWithDetailsController } from './controllers/get-task-with-detail
 import { UploadAttachmentController } from './controllers/upload-attachment.controller';
 
 @Module({
-  imports: [DatabaseModule, StorageModule],
+  imports: [PersistenceModule, StorageModule],
   controllers: [
     CreateTaskController,
     FetchRecentTasksController,

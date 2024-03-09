@@ -9,7 +9,8 @@ import { Uploader, UploadParams } from '../../domain/application/storage/uploade
 export class FileSystemStorageImpl implements Uploader {
   async upload(params: UploadParams): Promise<{ path: string }> {
     const { fileName, body } = params
-    const uploadDir = path.join(__dirname, '../../../uploads') // Directory where uploads will be saved
+    // TODO: Receber o caminho como parametro ou colocar como variável
+    const uploadDir = path.join(__dirname, '../../../../../uploads') // Directory where uploads will be saved
 
     // Verifica se o diretório de upload existe, senão, cria um novo
     if (!fs.existsSync(uploadDir)) {

@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { UniqueEntityID } from 'core/entities/unique-entity-id';
+import { PrismaService } from 'src/common/database/prisma/prisma.service';
 import {
   CommentAttachment,
   CommentAttachmentProps,
 } from 'src/modules/task/domain/enterprise/comment-attachment.entity';
-import { PrismaService } from 'src/modules/task/infra/database/prisma/prisma.service';
 
 export function makeCommentAttachment(
   override: Partial<CommentAttachmentProps> = {},

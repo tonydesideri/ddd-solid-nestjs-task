@@ -1,10 +1,11 @@
 import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { AppModule } from 'src/app.module';
-import { DatabaseModule } from 'src/modules/task/infra/database/database.module';
-import { PrismaService } from 'src/modules/task/infra/database/prisma/prisma.service';
+import { DatabaseModule } from 'src/common/database/database.module';
+import { PrismaService } from 'src/common/database/prisma/prisma.service';
 import request from 'supertest';
 import { TaskFactory } from 'test/factories/make-task.factory';
+import { PersistenceModule } from '../../persistence/persistence.module';
 
 describe('Change Favorite Task (e2e)', () => {
   let app: INestApplication;
@@ -13,7 +14,7 @@ describe('Change Favorite Task (e2e)', () => {
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
-      imports: [AppModule, DatabaseModule],
+      imports: [AppModule, DatabaseModule, PersistenceModule],
       providers: [TaskFactory]
     }).compile();
 

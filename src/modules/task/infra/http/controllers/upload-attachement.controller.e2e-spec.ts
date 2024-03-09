@@ -1,7 +1,7 @@
 import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
 import { AppModule } from 'src/app.module'
-import { DatabaseModule } from 'src/modules/task/infra/database/database.module'
+import { DatabaseModule } from 'src/common/database/database.module'
 import request from 'supertest'
 
 describe('Upload attachment (E2E)', () => {
